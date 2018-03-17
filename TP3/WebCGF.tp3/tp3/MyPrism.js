@@ -21,27 +21,42 @@ class MyPrism extends CGFobject
 		this.indices = [];
 
 		this.normals = [];
-	
+
 		var angle = (360/this.slices) * (Math.PI/180);
-		
+
 
 		//Making vertices
-		for(var i = 0; i<this.slices;i++) { //Front
-			for(var j = 0; j<2; j++) //2 Vertices declared 
-				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), 0.5);			
+		for(var j = 0; j<2; j++) { //2 Vertices declared 
+			for(var i = 0; i<this.slices;i++) { //Front
+				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), 0.5);	
+			}
+
+			for(var i = 0; i<this.slices;i++) { //Back
+				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), -0.5);			
+			}
 		}
 
-		for(var i = 0; i<this.slices;i++) { //Back
-			for(var j = 0; j<2; j++) //2 Vertices declared 
-				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), -0.5);			
+		//Making indices
+		for(var i = 0; i<this.slices; i++) {
+			console.log(i);
+			if(i!=(this.slices-1)) {
+				this.indices.push(i, i+1+this.slices, i+1);
+				this.indices.push(i, i+this.slices, i+1+this.slices);
+			}
+			else {
+				this.indices.push(i, i+1, 0);
+				this.indices.push(i, i+this.slices, i+1);
+			}
+
 		}
 
 		console.log(this.vertices);
+		console.log("IND: "+this.indices);
 
 		//Making Indices
-		
 
-		
+
+
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
