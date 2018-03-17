@@ -6,7 +6,7 @@ var BOARD_HEIGHT = 4.0;
 var BOARD_A_DIVISIONS = 30;
 var BOARD_B_DIVISIONS = 100;
 
-var PRISM_SLICES = 3;
+var PRISM_SLICES = 8;
 var PRISM_STACKS = 1;
 
 class LightingScene extends CGFscene 
@@ -147,60 +147,62 @@ class LightingScene extends CGFscene
 		// ---- BEGIN Scene drawing section
 
 		// Floor
-		//this.pushMatrix();
-			//tthis.translate(7.5, 0, 7.5);
-			//tthis.rotate(-90 * degToRad, 1, 0, 0);
-			//this.scale(15, 15, 0.2);
-			//this.floor.display();
-		//this.popMatrix();
+		this.pushMatrix();
+		this.translate(7.5, 0, 7.5);
+		this.rotate(-90 * degToRad, 1, 0, 0);
+		this.scale(15, 15, 0.2);
+		this.floor.display();
+		this.popMatrix();
 
 		// Left Wall
-		//this.pushMatrix();
-			//tthis.translate(0, 4, 7.5);
-			//this.rotate(90 * degToRad, 0, 1, 0);
-			//this.scale(15, 8, 0.2);
-			//this.wall.display();
-		//this.popMatrix();
+		this.pushMatrix();
+		this.translate(0, 4, 7.5);
+		this.rotate(90 * degToRad, 0, 1, 0);
+		this.scale(15, 8, 0.2);
+		this.wall.display();
+		this.popMatrix();
 
 		// Plane Wall
-		//this.pushMatrix();
-			//tthis.translate(7.5, 4, 0);
-			//this.scale(15, 8, 0.2);
-			//tthis.wall.display();
-		//tthis.popMatrix();
+		this.pushMatrix();
+		this.translate(7.5, 4, 0);
+		this.scale(15, 8, 0.2);
+		this.wall.display();
+		this.popMatrix();
 
 		// First Table
-		//tthis.pushMatrix();
-			//tthis.translate(5, 3.5, 8);
-			//tthis.table.display();
-		//tthis.popMatrix();
+		this.pushMatrix();
+		this.translate(5, 3.5, 8);
+		this.table.display();
+		this.popMatrix();
 
 		// Second Table
-		//tthis.pushMatrix();
-		//t	this.translate(12, 3.5, 8);
-		//t	this.table.display();
-		//tthis.popMatrix();
+		this.pushMatrix();
+		this.translate(12, 3.5, 8);
+		this.table.display();
+		this.popMatrix();
 
 		// Board A
-		//tthis.pushMatrix();
-		//t	this.translate(4, 4.5, 0.2);
-		//t	this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+		this.pushMatrix();
+		this.translate(4, 4.5, 0.2);
+		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 			
-		//t	this.materialA.apply();
-		//t	this.boardA.display();
-		//tthis.popMatrix();
+		this.materialA.apply();
+		this.boardA.display();
+		this.popMatrix();
 
 		// Board B
-		//tthis.pushMatrix();
-		//t	this.translate(10.5, 4.5, 0.2);
-		//t	this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+		this.pushMatrix();
+		this.translate(10.5, 4.5, 0.2);
+		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 			
-		//t	this.materialB.apply();
-		//t	this.boardB.display();
-		//tthis.popMatrix();
+		this.materialB.apply();
+		this.boardB.display();
+		this.popMatrix();
 
 		//Prism
 		this.pushMatrix();
+		this.translate(10.5, 4.5, 5);
+		this.scale(5, 5, 5);
 		this.prism.display();
 		this.popMatrix();
 
