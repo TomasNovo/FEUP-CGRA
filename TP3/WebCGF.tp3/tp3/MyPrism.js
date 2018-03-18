@@ -41,21 +41,23 @@ class MyPrism extends CGFobject
 		}
 
 		//Making indices
-		for(var i = 0; i<this.slices; i++) {
-			console.log(i);
-			if(i!=(this.slices-1)) {
-				this.indices.push(i, i+1+this.slices, i+1); //anticlockwise
-				this.indices.push(i+1, i+1+this.slices, i); //clockwise
-				this.indices.push(i, i+this.slices, i+1+this.slices); //anticlockwise
-				this.indices.push(i+1+this.slices, i+this.slices, i);
-			}
-			else {
-				this.indices.push(i, i+1, 0); //anticlockwise
-				this.indices.push(0, i+1, i); //clockwise
-				this.indices.push(i, i+this.slices, i+1); //anticlockwise
-				this.indices.push(i+1, i+this.slices, i); //clockwise
-			}
+		for(var k = 0; k<this.stacks; k++) { //Number of stacks
+			for(var i = 0; i<this.slices; i++) {
+				console.log(i);
+				if(i!=(this.slices-1)) {
+					this.indices.push(i +(this.slices*2*k), i+1+this.slices+(this.slices*2*k), i+1+(this.slices*2*k)); //anticlockwise
+					this.indices.push(i+1+(this.slices*2*k), i+1+this.slices+(this.slices*2*k), i+(this.slices*2*k)); //clockwise
+					this.indices.push(i+(this.slices*2*k), i+this.slices+(this.slices*2*k), i+1+this.slices+(this.slices*2*k)); //anticlockwise
+					this.indices.push(i+1+this.slices+(this.slices*2*k), i+this.slices+(this.slices*2*k), i+(this.slices*2*k));
+				}
+				else {
+					this.indices.push(i+(this.slices*2*k), i+1+(this.slices*2*k), 0+(this.slices*2*k)); //anticlockwise
+					this.indices.push(0+(this.slices*2*k), i+1+(this.slices*2*k), i+(this.slices*2*k)); //clockwise
+					this.indices.push(i+(this.slices*2*k), i+this.slices+(this.slices*2*k), i+1+(this.slices*2*k)); //anticlockwise
+					this.indices.push(i+1+(this.slices*2*k), i+this.slices+(this.slices*2*k), i+(this.slices*2*k)); //clockwise
+				}
 
+			}
 		}
 
 		console.log(this.vertices);
