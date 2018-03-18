@@ -23,16 +23,20 @@ class MyPrism extends CGFobject
 		//this.normals = [];
 
 		var angle = (360/this.slices) * (Math.PI/180);
-
+		var distance_stacks = 1.0/this.stacks;
 
 		//Making vertices
-		for(var j = 0; j<2; j++) { //2 Vertices declared 
-			for(var i = 0; i<this.slices;i++) { //Front
-				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), 0.5);	
-			}
+		for(var j = 0; j<2; j++) { //2 Vertices declared
+			for(var k = 0; k<this.stacks; k++) { //Number of Stacks
+				for(var i = 0; i<this.slices;i++) { //Front
+					this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), (-0.5 + k*distance_stacks));	
+				}
 
-			for(var i = 0; i<this.slices;i++) { //Back
-				this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), -0.5);			
+				for(var i = 0; i<this.slices;i++) { //Back
+					this.vertices.push(Math.cos(angle*i), Math.sin(angle*i), (-0.5 + k*distance_stacks+distance_stacks));			
+				}
+
+				console.log("K: "+ k);
 			}
 		}
 

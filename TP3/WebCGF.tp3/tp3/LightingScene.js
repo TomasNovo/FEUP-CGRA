@@ -6,8 +6,8 @@ var BOARD_HEIGHT = 4.0;
 var BOARD_A_DIVISIONS = 30;
 var BOARD_B_DIVISIONS = 100;
 
-var PRISM_SLICES = 8;
-var PRISM_STACKS = 1;
+var PRISM_SLICES = 3;
+var PRISM_STACKS = 2.0;
 
 class LightingScene extends CGFscene 
 {
@@ -202,7 +202,7 @@ class LightingScene extends CGFscene
 		//Prism
 		this.pushMatrix();
 		this.translate(10.5, 4.5, 5);
-		this.scale(5, 5, 5);
+		//this.scale(5, 5, 5);
 		this.prism.display();
 		this.popMatrix();
 
