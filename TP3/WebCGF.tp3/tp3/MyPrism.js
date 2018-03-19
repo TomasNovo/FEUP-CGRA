@@ -47,7 +47,9 @@ class MyPrism extends CGFobject
 
 
 				this.indices.push(j, j + 1, j + 2); // 012
+				this.indices.push(j+2, j+1, j); 
 				this.indices.push(j, j + 2, j + 3); // 023
+				this.indices.push(j+3, j+2, j);
 				j = j + 4;
 
 				this.normals.push(Math.cos(angleNormal + angle*i) , Math.sin(angleNormal + angle*i),0);
@@ -56,12 +58,8 @@ class MyPrism extends CGFobject
 				this.normals.push(Math.cos(angleNormal + angle*i) , Math.sin(angleNormal + angle*i),0);
 
 			}
-			var a =0;
-			a++;
 
         }
-        
-       
 
 		this.initGLBuffers();
 	};
