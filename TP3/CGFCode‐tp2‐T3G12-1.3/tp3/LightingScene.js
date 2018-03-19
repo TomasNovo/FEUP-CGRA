@@ -41,7 +41,6 @@ class LightingScene extends CGFscene
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 		
 		this.prism = new MyPrism(this, PRISM_SLICES, PRISM_STACKS);
-		this.cylinder = new MyCylinder(this, PRISM_SLICES, PRISM_STACKS);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -207,14 +206,6 @@ class LightingScene extends CGFscene
 		this.scale(1, 1, 8);
 		this.prism.display();
 		this.popMatrix();
-		
-		//Cylinder
-                this.pushMatrix();
-                this.translate(9, 8, 12);
-                this.rotate(Math.PI/2,1,0,0);
-                this.scale(1, 1, 8);
-                this.cylinder.display();
-                this.popMatrix();
 
 		// ---- END Scene drawing section
 	};
