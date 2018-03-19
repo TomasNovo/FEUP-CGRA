@@ -7,7 +7,7 @@ var BOARD_A_DIVISIONS = 30;
 var BOARD_B_DIVISIONS = 100;
 
 var PRISM_SLICES = 3;
-var PRISM_STACKS = 3.0;
+var PRISM_STACKS = 1.0;
 
 class LightingScene extends CGFscene 
 {
