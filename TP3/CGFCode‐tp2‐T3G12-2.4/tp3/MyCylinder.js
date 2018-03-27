@@ -10,7 +10,7 @@ class MyCylinder extends CGFobject
        this.initBuffers();
      }
 
-	initBuffers() 
+	initBuffers()  
 	{
 		this.vertices = [];
 
@@ -54,8 +54,8 @@ class MyCylinder extends CGFobject
 
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
-				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
-				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
+				this.normals.push(Math.cos(angle*(i+1)) , Math.sin(angle*(i+1)),0);
+				this.normals.push(Math.cos(angle*(i+1) ), Math.sin(angle*(i+1)),0);
 
 			}
 
