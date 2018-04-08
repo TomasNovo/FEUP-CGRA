@@ -2,7 +2,7 @@
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject{
 
-	constructor(scene, nrDivs) 
+	constructor(scene, nrDivs, minS, maxS, minT, maxT) 
 	{
 		super(scene);
 
@@ -11,7 +11,10 @@ class Plane extends CGFobject{
 
 		this.nrDivs = nrDivs;
 		this.patchLength = 1.0 / nrDivs;
-
+		this.minS = minS || 0;
+		this.maxS = maxS || 1;
+		this.minT = minT || 0;
+		this.maxT = maxT || 1;
 		this.initBuffers();
 	};
 
@@ -38,9 +41,12 @@ class Plane extends CGFobject{
 		this.normals = [];
 		
 		// Uncomment below to init texCoords
-		//this.texCoords = [];
+		this.texCoords = [];
 
 		var yCoord = 0.5;
+
+		this.stepS = (this.maxS-this.minS)/this.nrDivs;
+		this.stepT = (this.maxT-this.minT)/this.nrDivs;
 
 		for (var j = 0; j <= this.nrDivs; j++) 
 		{
@@ -55,7 +61,7 @@ class Plane extends CGFobject{
 				this.normals.push(0,0,1);
 
 				// texCoords should be computed here; uncomment and fill the blanks
-				// this.texCoords.push(..., ...);
+				this.texCoords.push(i*this.stepS, j*this.stepT);
 
 				xCoord += this.patchLength;
 			}
