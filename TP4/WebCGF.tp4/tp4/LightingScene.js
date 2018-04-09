@@ -40,8 +40,10 @@ class LightingScene extends CGFscene
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 		
-		this.prism = new MyPrism(this, PRISM_SLICES, PRISM_STACKS);
-		this.cylinder = new MyCylinder(this, PRISM_SLICES, PRISM_STACKS);
+		//this.prism = new MyPrism(this, PRISM_SLICES, PRISM_STACKS);
+		//this.cylinder = new MyCylinder(this, PRISM_SLICES, PRISM_STACKS);
+		this.prism = new MyPrism(this, 6, 20);
+		this.cylinder = new MyCylinder(this, 6, 20);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -98,6 +100,14 @@ class LightingScene extends CGFscene
         	this.boardAppearance.setSpecular(0.6,0.6,0.6,1);
         	this.boardAppearance.setShininess(200);
         	//this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+
+		this.cylinderAppearance = new CGFappearance(this);
+                this.cylinderAppearance.loadTexture("../resources/images/pillar.png");
+                this.cylinderAppearance.setAmbient(0.7,0.7,0.7,1);
+                this.cylinderAppearance.setDiffuse(0.7,0.7,0.7,1);
+                this.cylinderAppearance.setSpecular(0.6,0.6,0.6,1);
+                this.cylinderAppearance.setShininess(200);
+		//this.cylinderAppearance.setTextureWrap('REPEAT','REPEAT');
 
 		//Textures
 		this.enableTextures(true);
@@ -260,20 +270,22 @@ class LightingScene extends CGFscene
 		this.popMatrix();
 
 		//Prism
-		//this.pushMatrix();
-		//this.translate(6, 8, 12);
-		//this.rotate(Math.PI/2,1,0,0);
-		//this.scale(1, 1, 8);
-		//this.prism.display();
-		//this.popMatrix();
+		this.pushMatrix();
+		this.translate(6, 8, 12);
+		this.rotate(Math.PI/2,1,0,0);
+		this.scale(1, 1, 8);
+		this.cylinderAppearance.apply();
+                this.cylinder.display();
+		this.popMatrix();
 		
 		//Cylinder
-                //this.pushMatrix();
-                //this.translate(3, 8, 12);
-                //this.rotate(Math.PI/2,1,0,0);
-                //this.scale(1, 1, 8);
-                //this.cylinder.display();
-                //this.popMatrix();
+                this.pushMatrix();
+                this.translate(3, 8, 12);
+                this.rotate(Math.PI/2,1,0,0);
+                this.scale(1, 1, 8);
+		this.cylinderAppearance.apply();
+                this.cylinder.display();
+                this.popMatrix();
 
 		// ---- END Scene drawing section
 	};

@@ -20,6 +20,8 @@ class MyCylinder extends CGFobject
 		
 		this.normals = [];
 
+		this.texCoords = [];
+
 
         var angle = 2*3.14159/this.slices;
         var r = 1;
@@ -31,6 +33,9 @@ class MyCylinder extends CGFobject
 
         
         var stack_size = 1/this.stacks;
+
+
+	var s,t = 0;
 
 
         for ( var w = 0; w < this.stacks; w++)
@@ -56,8 +61,20 @@ class MyCylinder extends CGFobject
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
+				
+				this.texCoords.push(s,t);
+				s+=1/this.stacks;
+				this.texCoords.push(s*2,t*2);
+				s+=1/this.stacks;
+				this.texCoords.push(s*3,t*3);
+				s+=1/this.stacks; 	
+				this.texCoords.push(s*4,t*4);
+				
+				s+=1/this.stacks;
 
 			}
+			s=0;
+			t+=1/this.stacks;
 
         }
 
