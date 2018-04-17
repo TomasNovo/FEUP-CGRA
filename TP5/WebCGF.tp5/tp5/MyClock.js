@@ -34,6 +34,7 @@ class MyClock extends CGFobject
 		this.vertices =[];
 		this.indices = [];
 		
+		this.contTime = 0;
 
 		//clockAppearance
         	this.clockAppearance = new CGFappearance(this.scene);
@@ -47,9 +48,17 @@ class MyClock extends CGFobject
 	};
 
 	
-	update()
+	update(currTime)
 	{
-      
+      		this.contTime = this.contTime+1;
+
+		if(this.contTime%10 == 0) {
+			this.hpointer.setAngle(this.hpointer.angle-(6/60/60));
+			this.mpointer.setAngle(this.mpointer.angle-(6/60));
+			this.spointer.setAngle(this.spointer.angle-6);
+			console.log("OOOOOOO");
+		}
+		console.log("TESTE: "+this.spointer.angle);
 		
 	};
 

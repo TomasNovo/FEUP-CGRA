@@ -18,13 +18,13 @@ class LightingScene extends CGFscene
 
 	update(currTime)
 	{
-      this.lastTime = this.lastTime || 0;
+      //this.lastTime = this.lastTime || 0;
 
-      this.deltaTime = currTime - this.lastTime;
+      //this.deltaTime = currTime - this.lastTime;
       
-      this.lastTime = currTime;
+      //this.lastTime = currTime;
 
-      //this.clock.update(this.deltaTime);
+      this.clock.update(currTime);
 
 
 	};
@@ -136,7 +136,7 @@ class LightingScene extends CGFscene
         //this.clockAppearance.setShininess(100);
 
 
-        
+       		this.setUpdatePeriod(100);
 	}
 
 	initCameras() 
