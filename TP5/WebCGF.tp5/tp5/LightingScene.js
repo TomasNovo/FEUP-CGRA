@@ -16,10 +16,25 @@ class LightingScene extends CGFscene
 		super();
 	};
 
+	update(currTime)
+	{
+      this.lastTime = this.lastTime || 0;
+
+      this.deltaTime = currTime - this.lastTime;
+      
+      this.lastTime = currTime;
+
+      //this.clock.update(this.deltaTime);
+
+
+	};
+
 	init(application) 
 	{
-		super.init(application);
+		
 
+		super.init(application);
+        this.enableTextures(true); // 1.2
 		this.initCameras();
 
 		this.initLights();
@@ -34,15 +49,20 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.table = new MyTable(this);
-		this.wall = new MyQuad(this,-0.5,1.5,-0.5,1.5);
-		this.floor = new MyQuad(this,0,10,0,12);
 		
+		this.wall = new MyQuad(this,-0.5,1.5,-0.5,1.5);
+		
+		this.floor = new MyQuad(this,0,10,0,12);
+
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 		
 		this.prism = new MyPrism(this, PRISM_SLICES, PRISM_STACKS);
-		this.cylinder = new MyCylinder(this, PRISM_SLICES, PRISM_STACKS);
+		
+		this.clock = new MyClock(this);
 
+		this.teste = new MyCircle(this, 12);
+		
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 		
@@ -58,58 +78,66 @@ class LightingScene extends CGFscene
 		this.materialB.setSpecular(0.8,0.8,0.8,1);	
 		this.materialB.setShininess(120);
 
-		this.tableAppearance = new CGFappearance(this);
-		this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
-        	this.tableAppearance.setDiffuse(0.9,0.9,0.9,1);
-		this.tableAppearance.setSpecular(0.2,0.2,0.2,0.5);
-        	this.tableAppearance.setShininess(10);
-		this.tableAppearance.loadTexture("../resources/images/table.png");
-		
-		this.floorAppearance = new CGFappearance(this);
-		this.floorAppearance.loadTexture("../resources/images/floor.png");
-		this.floorAppearance.setAmbient(0.1,0.1,0.1,1);
-		this.floorAppearance.setDiffuse(0.5,0.5,0.5,1);
-		this.floorAppearance.setSpecular(0.7,0.7,0.7,1);
-		this.floorAppearance.setShininess(120);
-		this.floorAppearance.setTextureWrap('REPEAT','REPEAT');
 
-		this.windowAppearance = new CGFappearance(this);
-		this.windowAppearance.loadTexture("../resources/images/window.png");
-        	this.windowAppearance.setAmbient(0.1,0.1,0.1,1);
-        	this.windowAppearance.setDiffuse(0.5,0.5,0.5,1);
-        	this.windowAppearance.setSpecular(0.7,0.7,0.7,1);
-        	this.windowAppearance.setShininess(120);
-        	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+		this.tableAppearence = new CGFappearance(this);
+		this.tableAppearence.setDiffuse(0.8,0.8,0.8,1);
+		this.tableAppearence.setSpecular(0.1,0.1,0.1,1);
+		this.tableAppearence.setShininess(120);
+		this.tableAppearence.loadTexture("../resources/images/table.png");
+
+		this.floorAppearence = new CGFappearance(this);
+		this.floorAppearence.loadTexture("../resources/images/floor.png");
+		this.floorAppearence.setAmbient(0.1,0.1,0.1,1);
+		this.floorAppearence.setDiffuse(0.5,0.5,0.5,1);
+		this.floorAppearence.setSpecular(0.7,0.7,0.7,1);
+		this.floorAppearence.setShininess(120);
+		this.floorAppearence.setTextureWrap('REPEAT','REPEAT');
 
 		this.wallAppearance = new CGFappearance(this);
+		
+		this.windowAppearance = new CGFappearance(this);
+		this.windowAppearance.loadTexture("../resources/images/window.png");
+        this.windowAppearance.setAmbient(0.1,0.1,0.1,1);
+        this.windowAppearance.setDiffuse(0.5,0.5,0.5,1);
+        this.windowAppearance.setSpecular(0.7,0.7,0.7,1);
+        this.windowAppearance.setShininess(120);
+        this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
 
-		this.slidesAppearance = new CGFappearance(this);
+        this.slidesAppearance = new CGFappearance(this);
 		this.slidesAppearance.loadTexture("../resources/images/slides.png");
-        	this.slidesAppearance.setAmbient(0.1,0.1,0.1,1);
-        	this.slidesAppearance.setDiffuse(0.5,0.5,0.5,1);
-        	this.slidesAppearance.setSpecular(0.1,0.1,0.1,1);
-        	this.slidesAppearance.setShininess(10);
-        	//this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+        this.slidesAppearance.setAmbient(0.1,0.1,0.1,1);
+        this.slidesAppearance.setDiffuse(0.5,0.5,0.5,1);
+        this.slidesAppearance.setSpecular(0.1,0.1,0.1,1);
+        this.slidesAppearance.setShininess(10);
+        //this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
 		
 		this.boardAppearance = new CGFappearance(this);
 		this.boardAppearance.loadTexture("../resources/images/board.png");
-        	this.boardAppearance.setAmbient(0.1,0.1,0.1,1);
-        	this.boardAppearance.setDiffuse(0.1,0.1,0.1,1);
-        	this.boardAppearance.setSpecular(0.6,0.6,0.6,1);
-        	this.boardAppearance.setShininess(200);
-        	//this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+        this.boardAppearance.setAmbient(0.1,0.1,0.1,1);
+        this.boardAppearance.setDiffuse(0.1,0.1,0.1,1);
+        this.boardAppearance.setSpecular(0.6,0.6,0.6,1);
+        this.boardAppearance.setShininess(200);
+        //	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
 		
-		this.cylinderAppearance = new CGFappearance(this);
-                this.cylinderAppearance.loadTexture("../resources/images/pillar.jpg");
-                this.cylinderAppearance.setAmbient(0.6,0.6,0.6,1);
-                this.cylinderAppearance.setDiffuse(0.6,0.6,0.6,1);
-                this.cylinderAppearance.setSpecular(0.6,0.6,0.6,1);
-                this.cylinderAppearance.setShininess(200);
-		
-		//Textures
-		this.enableTextures(true);
-		
-	};
+		this.prismAppearance = new CGFappearance(this);
+		this.prismAppearance.loadTexture("../resources/images/ui.png");
+        this.prismAppearance.setAmbient(0.8,0.8,0.8,1);
+        this.prismAppearance.setDiffuse(0.1,0.1,0.1,1);
+        this.prismAppearance.setSpecular(0.6,0.6,0.6,1);
+        this.prismAppearance.setShininess(100);
+        this.prismAppearance.setTextureWrap('REPEAT','REPEAT');
+
+        //clockAppearance
+        this.clockAppearance = new CGFappearance(this);
+		this.clockAppearance.loadTexture("../resources/images/clock.png");
+        this.clockAppearance.setAmbient(0.8,0.8,0.8,1);
+      //  this.clockAppearance.setDiffuse(0.1,0.1,0.1,1);
+       // this.clockAppearance.setSpecular(0.6,0.6,0.6,1);
+        this.clockAppearance.setShininess(100);
+
+
+        
+	}
 
 	initCameras() 
 	{
@@ -119,22 +147,20 @@ class LightingScene extends CGFscene
 	initLights() 
 	{
 	//	this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
-		this.setGlobalAmbientLight(0,0,0,1);
+		this.setGlobalAmbientLight(0,0,0, 1);
 		// Positions for four lights
 		this.lights[0].setPosition(4, 6, 1, 1);
-		//this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-                //this.lights[2].setVisible(true); // show marker on light position (different from enabled)
+                this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[3].setPosition(4, 6, 5, 1);
-               // this.lights[3].setVisible(true);
-		
-		this.lights[4].setPosition(2,5,7.5,1);
-		this.lights[4].setVisible(true);
+                this.lights[3].setVisible(true);
+
 		//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
@@ -164,14 +190,6 @@ class LightingScene extends CGFscene
                 this.lights[3].setLinearAttenuation(0); // kl
                 this.lights[3].setQuadraticAttenuation(0.2); // kq<Paste>
                 this.lights[3].enable();
-
-		this.lights[4].setAmbient(0, 0, 0, 1);
-              	this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-                this.lights[4].setSpecular( 1.0, 1.0, 1.0, 1.0 );
-		this.lights[4].setConstantAttenuation(0); // kc
-                this.lights[4].setLinearAttenuation(1.0); // kl
-                this.lights[4].setQuadraticAttenuation(0); // kq
-		this.lights[4].enable();
 	};
 
 	updateLights() 
@@ -213,8 +231,8 @@ class LightingScene extends CGFscene
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
-		this.floorAppearance.apply();
-		this.floor.display();
+		//this.floorAppearence.apply();
+		//this.floor.display();
 		this.popMatrix();
 
 		// Left Wall
@@ -222,68 +240,75 @@ class LightingScene extends CGFscene
 		this.translate(0, 4, 7.5);
 		this.rotate(90 * degToRad, 0, 1, 0);
 		this.scale(15, 8, 0.2);
-		this.windowAppearance.apply();
-		this.wall.display();
+		//this.windowAppearance.apply();
+		//this.wall.display();
 		this.popMatrix();
 
 		// Plane Wall
 		this.pushMatrix();
 		this.translate(7.5, 4, 0);
 		this.scale(15, 8, 0.2);
-		this.wallAppearance.apply();
-		this.wall.display();
+		//this.wallAppearance.apply();
+		//this.wall.display();
 		this.popMatrix();
 
 		// First Table
+		this.tableAppearence.apply();
 		this.pushMatrix();
 		this.translate(5, 3.5, 8);
-		this.table.display();
+		//this.table.display();
 		this.popMatrix();
 
 		// Second Table
 		this.pushMatrix();
 		this.translate(12, 3.5, 8);
-		this.table.display();
+		//this.table.display();
 		this.popMatrix();
 
 		// Board A
 		this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-			
-		//this.materialA.apply();
-		this.slidesAppearance.apply();
-		this.boardA.display();
+	    //this.slidesAppearance.apply();
+		//this.boardA.display();
 		this.popMatrix();
 
 		// Board B
 		this.pushMatrix();
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		this.boardAppearance.apply();
-		//this.materialB.apply();
-		this.boardB.display();
+	    //this.boardAppearance.apply();
+		//this.boardB.display();
 		this.popMatrix();
 
 		//Prism
-		//this.pushMatrix();
-		//this.translate(6, 8, 12);
-		//this.rotate(Math.PI/2,1,0,0);
-		//this.scale(1, 1, 8);
-		//this.cylinderAppearance.apply();
-		//this.cylinder.display();
-		//this.popMatrix();
+		this.pushMatrix();
+		this.translate(12, 7, 12);
+		this.rotate(Math.PI/2,1,0,0);
+		this.scale(1, 1, 8);
+	    //this.prismAppearance.apply();
+		//this.prism.display();
+		this.popMatrix();
 		
 		//Cylinder
-		this.pushMatrix();
-		this.translate(3, 8, 12);
-		this.rotate(Math.PI/2,1,0,0);
-		this.scale(5, 5, 8);
-		//this.cylinderAppearance.apply();
-		this.cylinder.display();
-		this.popMatrix();
+        this.pushMatrix();
+        //this.translate(7.25, 7, 0);
+        this.rotate(0/2,1,0,0);
+        // this.scale(1, 1, 0);
+        this.clockAppearance.apply(); 
+        this.clock.display();
+        this.popMatrix();
+
+        
+		//Teste Clock
+		//this.pushMatrix();
+		//this.clockAppearance.apply();
+		//this.teste.display();
+		//this.popMatrix();
 
 		// ---- END Scene drawing section
+
+
+		this.setUpdatePeriod(100)
 	};
 };
