@@ -12,7 +12,7 @@ class MyClockHand extends CGFobject
 
 	initBuffers()  
 	{
-		this.cylinder = new MyCylinderWTop(this.scene, 12, 1);
+		this.cylinder = new MyCylinder(this.scene, 12, 1);
         
         this.vertices = this.cylinder.vertices;
         this.indices = this.cylinder.indices;

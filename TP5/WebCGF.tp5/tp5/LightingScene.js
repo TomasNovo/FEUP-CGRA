@@ -128,12 +128,12 @@ class LightingScene extends CGFscene
         this.prismAppearance.setTextureWrap('REPEAT','REPEAT');
 
         //clockAppearance
-        this.clockAppearance = new CGFappearance(this);
-		this.clockAppearance.loadTexture("../resources/images/clock.png");
-        this.clockAppearance.setAmbient(0.8,0.8,0.8,1);
-      //  this.clockAppearance.setDiffuse(0.1,0.1,0.1,1);
-       // this.clockAppearance.setSpecular(0.6,0.6,0.6,1);
-        this.clockAppearance.setShininess(100);
+        //this.clockAppearance = new CGFappearance(this);
+		//this.clockAppearance.loadTexture("../resources/images/clock.png");
+        //this.clockAppearance.setAmbient(0.8,0.8,0.8,1);
+      ////  this.clockAppearance.setDiffuse(0.1,0.1,0.1,1);
+       //// this.clockAppearance.setSpecular(0.6,0.6,0.6,1);
+        //this.clockAppearance.setShininess(100);
 
 
         
@@ -231,8 +231,8 @@ class LightingScene extends CGFscene
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
-		//this.floorAppearence.apply();
-		//this.floor.display();
+		this.floorAppearence.apply();
+		this.floor.display();
 		this.popMatrix();
 
 		// Left Wall
@@ -240,45 +240,45 @@ class LightingScene extends CGFscene
 		this.translate(0, 4, 7.5);
 		this.rotate(90 * degToRad, 0, 1, 0);
 		this.scale(15, 8, 0.2);
-		//this.windowAppearance.apply();
-		//this.wall.display();
+		this.windowAppearance.apply();
+		this.wall.display();
 		this.popMatrix();
 
 		// Plane Wall
 		this.pushMatrix();
 		this.translate(7.5, 4, 0);
 		this.scale(15, 8, 0.2);
-		//this.wallAppearance.apply();
-		//this.wall.display();
+		this.wallAppearance.apply();
+		this.wall.display();
 		this.popMatrix();
 
 		// First Table
 		this.tableAppearence.apply();
 		this.pushMatrix();
 		this.translate(5, 3.5, 8);
-		//this.table.display();
+		this.table.display();
 		this.popMatrix();
 
 		// Second Table
 		this.pushMatrix();
 		this.translate(12, 3.5, 8);
-		//this.table.display();
+		this.table.display();
 		this.popMatrix();
 
 		// Board A
 		this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-	    //this.slidesAppearance.apply();
-		//this.boardA.display();
+	    this.slidesAppearance.apply();
+		this.boardA.display();
 		this.popMatrix();
 
 		// Board B
 		this.pushMatrix();
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-	    //this.boardAppearance.apply();
-		//this.boardB.display();
+	    this.boardAppearance.apply();
+		this.boardB.display();
 		this.popMatrix();
 
 		//Prism
@@ -290,21 +290,15 @@ class LightingScene extends CGFscene
 		//this.prism.display();
 		this.popMatrix();
 		
-		//Cylinder
-        this.pushMatrix();
-        //this.translate(7.25, 7, 0);
-        this.rotate(0/2,1,0,0);
-        // this.scale(1, 1, 0);
-        this.clockAppearance.apply(); 
-        this.clock.display();
-        this.popMatrix();
+		//Clock
+        	this.pushMatrix();
+	        this.translate(7.25, 7, 0);
+	        this.rotate(0/2,1,0,0);
+	        // this.scale(1, 1, 0);
+	        this.clock.display();
+	        this.popMatrix();
 
         
-		//Teste Clock
-		//this.pushMatrix();
-		//this.clockAppearance.apply();
-		//this.teste.display();
-		//this.popMatrix();
 
 		// ---- END Scene drawing section
 
