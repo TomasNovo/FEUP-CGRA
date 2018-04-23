@@ -1,7 +1,7 @@
 class MyClock extends CGFobject
 {
 	
-	constructor(scene)
+	constructor(scene, )
      {
        super(scene);
 
@@ -14,10 +14,12 @@ class MyClock extends CGFobject
 
 		this.spointer = new MyClockHand(this.scene);
 
-
-		this.hpointer.setAngle(0);
-		this.mpointer.setAngle(270);
-		this.spointer.setAngle(180);
+		this.today = new Date();
+        	this.currTime = this.today.getTime()/1000;
+		console.log("TESTE2 : " + this.currTime);		
+		this.hpointer.setAngle(this.currTime*(6/60/60));
+		this.mpointer.setAngle(this.currTime*(6/60));
+		this.spointer.setAngle(this.currTime*6);
 
 
 
@@ -48,17 +50,17 @@ class MyClock extends CGFobject
 	};
 
 	
-	update(currTime)
+	update(deltaTime)
 	{
-      		this.contTime = this.contTime+1;
-
-		if(this.contTime%10 == 0) {
-			this.hpointer.setAngle(this.hpointer.angle-(6/60/60));
-			this.mpointer.setAngle(this.mpointer.angle-(6/60));
-			this.spointer.setAngle(this.spointer.angle-6);
-			console.log("OOOOOOO");
-		}
-		console.log("TESTE: "+this.spointer.angle);
+      		console.log("AAAAAAAA "+this.hpointer.angle);
+		//this.contTime = this.contTime+1;
+		this.time = deltaTime/1000;
+		//if(this.contTime%10 == 0) {
+			this.hpointer.setAngle(this.hpointer.angle-(6/60/60)*this.time);
+			this.mpointer.setAngle(this.mpointer.angle-(6/60)*this.time);
+			this.spointer.setAngle(this.spointer.angle-6*this.time);
+		//}
+		//console.log("TESTE: "+this.spointer.angle);
 		
 	};
 
@@ -81,21 +83,21 @@ class MyClock extends CGFobject
 		
 
         	this.scene.pushMatrix();
-		this.scene.rotate(this.hpointer.angle * degToRad, 0,0,1);
+		this.scene.rotate(this.hpointer.angle * degToRad+90*degToRad, 0,0,1);
 		this.scene.translate(0.3,0,0.5);
 		this.scene.scale(1/3,1/20,1/20);
 		this.hpointer.display();;
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.rotate(this.mpointer.angle * degToRad, 0,0,1);
+		this.scene.rotate(this.mpointer.angle * degToRad+90*degToRad, 0,0,1);
 		this.scene.translate(0.4,0,0.5);
 		this.scene.scale(0.4,1/20,1/15);
 		this.mpointer.display();;
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.rotate(this.spointer.angle * degToRad, 0,0,1);
+		this.scene.rotate(this.spointer.angle * degToRad+90*degToRad, 0,0,1);
 		this.scene.translate(0.45,0,0.5);
 		this.scene.scale(0.45,1/20,1/20);
 		this.spointer.display();;

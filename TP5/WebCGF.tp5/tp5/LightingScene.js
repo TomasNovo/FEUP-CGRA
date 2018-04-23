@@ -18,13 +18,16 @@ class LightingScene extends CGFscene
 
 	update(currTime)
 	{
-      //this.lastTime = this.lastTime || 0;
+	//this.today = new Date();
+	//this.currTime -= this.today.getTimezoneOffset()*60*1000;	
+      this.lastTime = this.lastTime || 0;
+	this.deltaTime = currTime - this.lastTime;
+	if(this.deltaTime<1000) {
+		//this.lastTime = currTime;
+		this.clock.update(this.deltaTime);
+	}
+      this.lastTime = currTime;
 
-      //this.deltaTime = currTime - this.lastTime;
-      
-      //this.lastTime = currTime;
-
-      this.clock.update(currTime);
 
 
 	};
