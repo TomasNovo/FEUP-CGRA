@@ -18,7 +18,7 @@ class MyClock extends CGFobject
         	this.currTime = this.today.getTime()/1000;
 		console.log("TESTE2 : " + this.currTime);	
 	     	console.log("HOURS: " + this.today.getHours());
-		this.hpointer.setAngle(-this.currTime  *(6/60/60) - 1980*60*(6/60/60) );
+		this.hpointer.setAngle(-this.currTime  *(6/60/60) - 2160*60*(6/60/60) );
 		this.mpointer.setAngle(-this.currTime*(6/60));
 		this.spointer.setAngle(-this.currTime*6);
 		
