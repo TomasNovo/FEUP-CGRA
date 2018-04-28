@@ -16,12 +16,12 @@ class MyClock extends CGFobject
 
 		this.today = new Date();
         	this.currTime = this.today.getTime()/1000;
-		console.log("TESTE2 : " + this.currTime);		
-		this.hpointer.setAngle(this.currTime*(6/60/60));
-		this.mpointer.setAngle(this.currTime*(6/60));
-		this.spointer.setAngle(this.currTime*6);
-
-
+		console.log("TESTE2 : " + this.currTime);	
+	     	console.log("HOURS: " + this.today.getHours());
+		this.hpointer.setAngle(-this.currTime  *(6/60/60) - 1980*60*(6/60/60) );
+		this.mpointer.setAngle(-this.currTime*(6/60));
+		this.spointer.setAngle(-this.currTime*6);
+		
 
 		this.initBuffers();
 		this.display();
@@ -53,14 +53,10 @@ class MyClock extends CGFobject
 	update(deltaTime)
 	{
       		console.log("AAAAAAAA "+this.hpointer.angle);
-		//this.contTime = this.contTime+1;
 		this.time = deltaTime/1000;
-		//if(this.contTime%10 == 0) {
 			this.hpointer.setAngle(this.hpointer.angle-(6/60/60)*this.time);
 			this.mpointer.setAngle(this.mpointer.angle-(6/60)*this.time);
 			this.spointer.setAngle(this.spointer.angle-6*this.time);
-		//}
-		//console.log("TESTE: "+this.spointer.angle);
 		
 	};
 
