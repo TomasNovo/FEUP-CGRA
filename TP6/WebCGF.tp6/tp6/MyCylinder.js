@@ -28,7 +28,7 @@ class MyCylinder extends CGFobject
 		var texCoordY = 0;
 
 
-		for ( var w = 0; w < this.stacks+1; w++) //Defining vertices, normals and texCoords
+		for ( var w = 0; w < this.stacks+1; w++) //Defining vertices, indices, normals and texCoords
 		{
 
 			for (var i = 0; i < this.slices; i++)
@@ -38,6 +38,10 @@ class MyCylinder extends CGFobject
 				this.vertices.push(Math.cos(angle * i), Math.sin(angle * i), i/this.stacks);
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
 				this.texCoords.push(texCoordX, texCoordY);
+				if(w!=this.stacks) {
+					this.indices.push(w*this.slices+i,w*this.slices+((i+1)%this.slices),(w+1)*this.slices+(i+1)%this.slices);
+					this.indices.push(w*this.slices+i,(w+1)*this.slices+((i+1)%this.slices),(w+1)*this.slices+i);
+				}
 				texCoordX += 1/this.stacks;
 			}
 
