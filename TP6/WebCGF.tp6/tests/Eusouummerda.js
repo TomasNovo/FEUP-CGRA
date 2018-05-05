@@ -27,7 +27,7 @@ class MyCylinder extends CGFobject
 		var texCoordX = 0;
 		var texCoordY = 0;
 
-
+		console.log("I AM NOOB");
 		for ( var w = 0; w < this.stacks+1; w++) //Defining vertices, indices, normals and texCoords
 		{
 
@@ -38,10 +38,6 @@ class MyCylinder extends CGFobject
 				this.vertices.push(Math.cos(angle * i), Math.sin(angle * i), w/this.stacks);
 				this.normals.push(Math.cos(angle*i) , Math.sin(angle*i),0);
 				this.texCoords.push(texCoordX, texCoordY);
-				if(w!=this.stacks) {
-					this.indices.push(w*this.slices+i,w*this.slices+((i+1)%this.slices),(w+1)*this.slices+(i+1)%this.slices);
-					this.indices.push(w*this.slices+i,(w+1)*this.slices+((i+1)%this.slices),(w+1)*this.slices+i);
-				}
 				texCoordX += 1/this.stacks;
 			}
 
@@ -51,7 +47,12 @@ class MyCylinder extends CGFobject
 
 		}
 
-
+		for(var i = 0; i<this.stacks;i++) {
+			for(var j=0; j<this.slices;j++) {
+				this.indices.push(i*this.slices+j,i*this.slices+((j+1)%this.slices),(i+1)*this.slices+(j+1)%this.slices);
+				this.indices.push(i*this.slices+j,(i+1)*this.slices+((j+1)%this.slices),(i+1)*this.slices+j);
+			}
+		}
 
 		this.initGLBuffers();
 	};
