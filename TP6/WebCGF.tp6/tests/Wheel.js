@@ -29,7 +29,7 @@ class Wheel extends CGFobject {
 		this.sideTireAppearance.setShininess(120);
 
 		this.initGLBuffers();
-	}
+	};
 
 	display() {
 		this.scene.pushMatrix();

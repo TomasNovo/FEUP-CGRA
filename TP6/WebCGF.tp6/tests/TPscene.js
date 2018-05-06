@@ -24,7 +24,7 @@ class TPscene extends CGFscene
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis=new CGFaxis(this);
-        this.wheel = new Wheel(this);
+        this.sphere = new Sphere(this, 20, 6);
 
 
     };
@@ -90,7 +90,7 @@ class TPscene extends CGFscene
         //this.obj.display();
 	this.pushMatrix();
 	this.scale(5,5,5);
-	this.wheel.display();
+	this.sphere.display();
 	this.popMatrix();
         
         // ---- END Primitive drawing section
