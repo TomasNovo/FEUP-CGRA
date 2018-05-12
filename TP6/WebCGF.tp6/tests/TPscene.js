@@ -25,6 +25,7 @@ class TPscene extends CGFscene
 
         this.axis=new CGFaxis(this);
         this.sphere = new Sphere(this, 20, 6);
+	this.terrain = new MyTerrain(this);
 
 
     };
@@ -41,7 +42,7 @@ class TPscene extends CGFscene
 
     initCameras() 
     {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     };
 
     setDefaultAppearance() 
@@ -90,7 +91,7 @@ class TPscene extends CGFscene
         //this.obj.display();
 	this.pushMatrix();
 	this.scale(5,5,5);
-	this.sphere.display();
+	this.terrain.display();
 	this.popMatrix();
         
         // ---- END Primitive drawing section
