@@ -40,7 +40,9 @@ class LightingScene extends CGFscene
 		this.axis = new CGFaxis(this);
 
 		// Scene elements
-		
+		this.terrain = new MyTerrain(this);
+		this.vehicle = new MyVehicle(this);
+
        		this.setUpdatePeriod(100);
 	}
 
@@ -125,7 +127,17 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 
 		// ---- BEGIN Scene drawing section
+		
+			//Terrain
+			this.pushMatrix();
+			this.terrain.display();
+			this.popMatrix();
 
+			//Vehicle
+			this.pushMatrix();
+			this.translate(5,0.5,5);
+			this.vehicle.display();
+			this.popMatrix();
         
 
 		// ---- END Scene drawing section
