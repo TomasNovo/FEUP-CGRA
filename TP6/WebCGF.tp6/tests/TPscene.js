@@ -27,8 +27,14 @@ class TPscene extends CGFscene
         this.sphere = new Sphere(this, 20, 6);
 	this.terrain = new MyTerrain(this);
 
-
+	this.option1 = true;
+	this.option2 = false;
+	this.speed = 3;
     };
+
+	doSomething() {
+		console.log("Doing Something...");
+	}
 
     initLights() 
     {

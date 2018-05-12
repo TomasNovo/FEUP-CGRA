@@ -63,8 +63,9 @@ class MyInterface extends CGFinterface {
 		// or use String.fromCharCode(event.keyCode) to compare chars
 
 		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-		switch (event.keyCode)
+		switch (event.which || event.keyCode)
 		{
+
 			case (65):	// only works for capital 'A', as it is
 				console.log("Key 'A' pressed");
 		};
