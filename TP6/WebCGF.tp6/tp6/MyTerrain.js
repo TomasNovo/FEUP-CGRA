@@ -1,11 +1,12 @@
 class MyTerrain extends CGFobject {
-	constructor(scene) {
+	constructor(scene, nDivs) {
 		super(scene);
+		this.nDivs = nDivs;
 		this.initBuffers();
 	};
 
 	initBuffers() {
-		this.terrain = new Plane(this.scene,50);
+		this.terrain = new Plane(this.scene,this.nDivs);
 
 		this.vertices = [];
 		this.indices = [];

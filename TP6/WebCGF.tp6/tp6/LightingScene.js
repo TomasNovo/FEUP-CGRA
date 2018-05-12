@@ -7,8 +7,7 @@ class LightingScene extends CGFscene
 		super();
 	};
 
-	//update(currTime)
-	//{
+	update(currTime) {
       //this.lastTime = this.lastTime || 0;
 	//this.deltaTime = currTime - this.lastTime;
 	//if(this.deltaTime<1000) {
@@ -17,9 +16,11 @@ class LightingScene extends CGFscene
 	//}
       //this.lastTime = currTime;
 
-
-
-	//};
+	};
+	
+	turnAxis() {
+		this.axisVisibility = !this.axisVisibility;
+	}
 
 	init(application) 
 	{
@@ -38,9 +39,16 @@ class LightingScene extends CGFscene
 		this.gl.depthFunc(this.gl.LEQUAL);
 
 		this.axis = new CGFaxis(this);
+		
+		//MyInterface
+		this.light1 = true;
+		this.light2 = true;
+		this.light3 = true;
+		this.light4 = true;
+		this.axisVisibility = false; //Modified by function updateAxis
 
 		// Scene elements
-		this.terrain = new MyTerrain(this);
+		this.terrain = new MyTerrain(this, 50);
 		this.vehicle = new MyVehicle(this);
 
        		this.setUpdatePeriod(100);
@@ -98,6 +106,28 @@ class LightingScene extends CGFscene
 	{
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
+
+		//Update ON/OFF
+		if(this.light1) //Light 1
+			this.lights[0].enable();
+		else
+			this.lights[0].disable();
+
+		if(this.light2) //Light 2
+			this.lights[1].enable();
+		else
+			this.lights[1].disable();
+
+		if(this.light3) //Light 3
+			this.lights[2].enable();
+		else
+			this.lights[2].disable();
+
+		if(this.light4) //Light 4 
+			this.lights[3].enable();
+		else
+			this.lights[3].disable();
+
 	}
 
 
@@ -120,7 +150,8 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if(this.axisVisibility)
+			this.axis.display();
 
 		//this.materialDefault.apply();
 
