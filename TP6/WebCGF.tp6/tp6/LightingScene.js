@@ -17,7 +17,7 @@ class LightingScene extends CGFscene
       //this.lastTime = currTime;
 		
 		this.checkKeys();
-
+		//this.vehicle.turnWheels("r");
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis

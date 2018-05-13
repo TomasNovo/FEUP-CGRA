@@ -30,14 +30,41 @@ class MyVehicle extends CGFobject
 		this.vertices = [];
 
 		this.indices = [];
+
+		this.wheelPosition = 0; //variation from -90 (left) to 90 (right)
+		this.velocity = 0; //Vehicle velocity from -50 (back) to 50(front)
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
 
+	turnWheels(direction) {
+		var maxAngle = 45; //Max inclination angle
+		var turnAngle = 1; //Turn Angle in each interation
+		var stabilizeAngle = 0.5; //Angle to stabilize wheels
+
+		console.log("Angle: " + this.wheelPosition);
+		if(direction=="l" && this.wheelPosition<maxAngle ) //Left
+			this.wheelPosition += turnAngle;
+		else if(direction=="r" && this.wheelPosition>(-maxAngle))//Right
+			this.wheelPosition -= turnAngle;
+		else if(direction=="s" && this.wheelPosition<=(maxAngle) && this.wheelPosition>0) //Stabilize from Right
+			this.wheelPosition -= stabilizeAngle;
+		else if(direction=="s" && this.wheelPosition>=(-maxAngle) && this.wheelPosition<0) //Stabilize from Left
+			this.wheelPosition += stabilizeAngle;
+	}
+
+	moveWheels(direction) {
+		var rotateAngle = 0.1; //Rotate to each interation
+		var velocityRotation = rotateAngle * this.velocity;
+	}
+
 
 	display()
 	{
+		//Moving Car
+		//this.scene.translate(4,0,0);
+
 		//chassis
 		this.scene.pushMatrix(); //comprimento 4.5  largura 2.5
 		this.scene.rotate( -Math.PI/2, 1,0,0);
@@ -49,6 +76,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,2.5);
+		this.scene.rotate(degToRad*this.wheelPosition,0,1,0);
 		this.wheel.display(); //roda1
 		this.scene.popMatrix();
 
