@@ -34,14 +34,17 @@ class MyVehicle extends CGFobject
 		this.wheelPosition = 0; //variation from -90 (left) to 90 (right)
 		this.velocity = 0; //Vehicle velocity from -50 (back) to 50(front)
 		this.wheelRotation = 0; //Wheel Rotation from -2*pi to 2*pi
+		this.posX = 0; //Car position in axi X
+		this.posZ = 0; //Car position in axi Z 
+		this.rotY = 0; //Car rotation in axi Y
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
 
 	turnWheels(direction) {
-		var maxAngle = 45; //Max inclination angle
-		var turnAngle = 1; //Turn Angle in each interation
+		var maxAngle = 15; //Max inclination angle
+		var turnAngle = 0.5; //Turn Angle in each interation
 		var stabilizeAngle = 0.5; //Angle to stabilize wheels
 
 		console.log("Angle: " + this.wheelPosition);
@@ -56,7 +59,7 @@ class MyVehicle extends CGFobject
 	}
 
 	moveWheels(direction) {
-		var maxVelocity = 10; //Max value to velocity
+		var maxVelocity = 4; //Max value to velocity
 		var maxRotation = 360; 
 		var rotation = 2*this.velocity; //Max rotation to each interation
 		var acceleration = 1; //Value to acceleration (increase velocity)
@@ -75,15 +78,24 @@ class MyVehicle extends CGFobject
 		else if(this.wheelRotation<(-maxRotation))
 			this.wheelRotation = 0;
 
-		console.log("Rotação : "+this.wheelRotation);
-		console.log("Velocidade : "+this.velocity);
+		//console.log("Rotação : "+this.wheelRotation);
+		//console.log("Velocidade : "+this.velocity);
+	}
+
+	move() {
+		this.moveWheels(); //Move Wheels activated
+		this.posX += -this.velocity*0.05;
+		this.rotY += this.wheelPosition;
+
 	}
 
 
 	display()
 	{
 		//Moving Car
-		//this.scene.translate(4,0,0);
+		this.scene.rotate(degToRad*this.rotY,0,1,0);
+		this.scene.translate(this.posX,0,0);
+
 
 		//chassis
 		this.scene.pushMatrix(); //comprimento 4.5  largura 2.5
@@ -97,12 +109,14 @@ class MyVehicle extends CGFobject
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,2.5);
 		this.scene.rotate(degToRad*this.wheelPosition,0,1,0); //Turn Left/Right
+		this.scene.rotate(degToRad*this.wheelRotation, 0,0,1); //Rotate
 		this.wheel.display(); //roda1
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(2.5,0,2.5);
+		this.scene.rotate(degToRad*this.wheelRotation, 0,0,1); //Rotate
 		this.wheel.display(); //roda 2
 		this.scene.popMatrix();
 			
@@ -117,6 +131,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(2.5,0,-3.5);
+		this.scene.rotate(degToRad*this.wheelRotation, 0,0,1); //Rotate
 		this.wheel.display();  // roda4
 		this.scene.popMatrix();
 
