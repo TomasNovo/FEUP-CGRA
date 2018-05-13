@@ -17,7 +17,7 @@ class LightingScene extends CGFscene
       //this.lastTime = currTime;
 		
 		this.checkKeys();
-		//this.vehicle.turnWheels("r");
+		this.vehicle.moveWheels();	
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
@@ -31,11 +31,13 @@ class LightingScene extends CGFscene
 		if(this.gui.isKeyPressed("KeyW")) {
 			text +=  " W ";
 			keyPressed = true;
+			this.vehicle.moveWheels("f");
 		}
 
 		if(this.gui.isKeyPressed("KeyS")) {
 			text += " S ";
 			keyPressed = true;
+			this.vehicle.moveWheels("b");
 		}
 
 		if(keyPressed)

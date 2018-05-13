@@ -33,6 +33,7 @@ class MyVehicle extends CGFobject
 
 		this.wheelPosition = 0; //variation from -90 (left) to 90 (right)
 		this.velocity = 0; //Vehicle velocity from -50 (back) to 50(front)
+		this.wheelRotation = 0; //Wheel Rotation from -2*pi to 2*pi
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
@@ -55,8 +56,27 @@ class MyVehicle extends CGFobject
 	}
 
 	moveWheels(direction) {
-		var rotateAngle = 0.1; //Rotate to each interation
-		var velocityRotation = rotateAngle * this.velocity;
+		var maxVelocity = 10; //Max value to velocity
+		var maxRotation = 360; 
+		var rotation = 2*this.velocity; //Max rotation to each interation
+		var acceleration = 1; //Value to acceleration (increase velocity)
+
+		if(direction=="f" && this.velocity<maxVelocity) //Increase Velocity
+				this.velocity += acceleration;
+
+		else if(direction=="b" && this.velocity>(-maxVelocity)) //Decrease Velocity
+			this.velocity -= acceleration;
+
+
+		this.wheelRotation += rotation;
+
+		if(this.wheelRotation>(maxRotation))
+			this.wheelRotation = 0;
+		else if(this.wheelRotation<(-maxRotation))
+			this.wheelRotation = 0;
+
+		console.log("Rotação : "+this.wheelRotation);
+		console.log("Velocidade : "+this.velocity);
 	}
 
 
@@ -76,20 +96,21 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,2.5);
-		this.scene.rotate(degToRad*this.wheelPosition,0,1,0);
+		this.scene.rotate(degToRad*this.wheelPosition,0,1,0); //Turn Left/Right
 		this.wheel.display(); //roda1
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(2.5,0,2.5);
-		this.scene.rotate(degToRad*this.wheelPosition,0,1,0);
 		this.wheel.display(); //roda 2
 		this.scene.popMatrix();
 			
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,-3.5);
+		this.scene.rotate(degToRad*this.wheelPosition,0,1,0); //Turn Left/Right
+		this.scene.rotate(degToRad*this.wheelRotation, 0,0,1); //Rotate
 		this.wheel.display(); // roda 3 
 		this.scene.popMatrix();
 
