@@ -83,6 +83,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(2.5,0,2.5);
+		this.scene.rotate(degToRad*this.wheelPosition,0,1,0);
 		this.wheel.display(); //roda 2
 		this.scene.popMatrix();
 			
