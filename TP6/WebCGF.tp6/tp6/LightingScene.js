@@ -15,11 +15,31 @@ class LightingScene extends CGFscene
 		//this.clock.update(this.deltaTime);
 	//}
       //this.lastTime = currTime;
+		
+		this.checkKeys();
 
 	};
 	
-	turnAxis() {
+	turnAxis() { //Turn ON/OFF Axis
 		this.axisVisibility = !this.axisVisibility;
+	}
+
+	checkKeys() {
+		var text = "Keys pressed: ";
+		var keyPressed = false;
+
+		if(this.gui.isKeyPressed("KeyW")) {
+			text +=  " W ";
+			keyPressed = true;
+		}
+
+		if(this.gui.isKeyPressed("KeyS")) {
+			text += " S ";
+			keyPressed = true;
+		}
+
+		if(keyPressed)
+			console.log(text);
 	}
 
 	init(application) 
