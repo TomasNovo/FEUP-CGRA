@@ -93,8 +93,9 @@ class MyVehicle extends CGFobject
 	display()
 	{
 		//Moving Car
-		this.scene.rotate(degToRad*this.rotY,0,1,0);
+
 		this.scene.translate(this.posX,0,0);
+		this.scene.rotate(degToRad*this.rotY,0,1,0);
 
 
 		//chassis
