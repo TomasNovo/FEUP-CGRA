@@ -1,6 +1,6 @@
 class MyTerrain extends Plane {
-	constructor(scene, nDivs) {
-		super(scene, nDivs);
+	constructor(scene, nDivs, altimetry) {
+		super(scene, nDivs, altimetry);
 
 		//Terrain Appearance
         	this.terrainAppearance = new CGFappearance(scene);

@@ -84,7 +84,17 @@ class LightingScene extends CGFscene
 		this.axisVisibility = false; //Modified by function updateAxis
 
 		// Scene elements
-		this.terrain = new MyTerrain(this, 50);
+		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
+				[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
+				[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ,0]
+    				];
+		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this);
 
        		this.setUpdatePeriod(100);
@@ -205,7 +215,7 @@ class LightingScene extends CGFscene
 
 			//Vehicle
 			this.pushMatrix();
-			this.translate(5,0.5,5);
+			this.translate(14,0.5,5);
 			this.vehicle.display();
 			this.popMatrix();
         
