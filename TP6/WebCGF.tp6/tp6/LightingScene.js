@@ -82,7 +82,27 @@ class LightingScene extends CGFscene
 		this.light3 = true;
 		this.light4 = true;
 		this.axisVisibility = false; //Modified by function updateAxis
-		this.message = 'pizza';
+
+		this.terrainAppearance = new CGFappearance(this);
+		this.terrainAppearance.loadTexture("../resources/images/terrain.jpg");
+		this.terrainAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.terrainAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.terrainAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.terrainAppearance.setShininess(120);
+
+		this.terrainAppearance2 = new CGFappearance(this);
+        	this.terrainAppearance2.loadTexture("../resources/images/tire.png");
+        	this.terrainAppearance2.setAmbient(1.0,1.0,1.0,1);
+        	this.terrainAppearance2.setDiffuse(1.0,1.0,1.0,1);
+        	this.terrainAppearance2.setSpecular(1.0,1.0,1.0,1);
+        	this.terrainAppearance2.setShininess(120);
+		
+		this.vehicleAppearances = [this.terrainAppearance, this.terrainAppearance2];
+		this.vehicleAppearanceList = {
+			'appearance1' : this.vehicleAppearances[0],
+			'appearance2' : this.vehicleAppearances[1]
+		}
+		this.currVehicleAppearance = "appearance1";
 
 		// Scene elements
 		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
@@ -208,7 +228,8 @@ class LightingScene extends CGFscene
 		
 			//Terrain
 			this.pushMatrix();
-			this.terrain.terrainAppearance.apply();
+			//this.terrain.terrainAppearance.apply();
+			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.scale(50,50,1);
 			this.terrain.display();
@@ -216,6 +237,7 @@ class LightingScene extends CGFscene
 
 			//Vehicle
 			this.pushMatrix();
+			//this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.translate(14,0.5,5);
 			this.vehicle.display();
 			this.popMatrix();
