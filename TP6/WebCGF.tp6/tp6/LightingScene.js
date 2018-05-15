@@ -197,6 +197,9 @@ class LightingScene extends CGFscene
 		
 			//Terrain
 			this.pushMatrix();
+			this.terrain.terrainAppearance.apply();
+			this.rotate(-Math.PI/2, 1, 0, 0);
+			this.scale(50,50,1);
 			this.terrain.display();
 			this.popMatrix();
 
