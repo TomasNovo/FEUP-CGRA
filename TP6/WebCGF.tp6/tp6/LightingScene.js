@@ -68,7 +68,7 @@ class LightingScene extends CGFscene
 
 		this.initLights();
 
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(0.529, 0.808, 0.922, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
