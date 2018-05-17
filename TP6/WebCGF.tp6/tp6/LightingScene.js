@@ -8,16 +8,16 @@ class LightingScene extends CGFscene
 	};
 
 	update(currTime) {
-      //this.lastTime = this.lastTime || 0;
-	//this.deltaTime = currTime - this.lastTime;
-	//if(this.deltaTime<1000) {
-		////this.lastTime = currTime;
-		//this.clock.update(this.deltaTime);
-	//}
-      //this.lastTime = currTime;
+      		this.lastTime = this.lastTime || 0;
+		this.deltaTime = currTime - this.lastTime;
+		if(this.deltaTime<1000) {
+			this.checkKeys();
+			this.vehicle.move(this.deltaTime);
+		}
+      		this.lastTime = currTime;
 		
-		this.checkKeys();
-		this.vehicle.move();
+		//this.checkKeys(this.deltaTime);
+		//this.vehicle.move("",);
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
@@ -31,13 +31,13 @@ class LightingScene extends CGFscene
 		if(this.gui.isKeyPressed("KeyW")) {
 			text +=  " W ";
 			keyPressed = true;
-			this.vehicle.moveWheels("f");
+			this.vehicle.moveWheels("f",this.deltaTime);
 		}
 
 		if(this.gui.isKeyPressed("KeyS")) {
 			text += " S ";
 			keyPressed = true;
-			this.vehicle.moveWheels("b");
+			this.vehicle.moveWheels("b",this.deltaTime);
 		}
 
 		if(this.gui.isKeyPressed("KeyA")) {

@@ -47,7 +47,7 @@ class MyVehicle extends CGFobject
 		var turnAngle = 0.5; //Turn Angle in each interation
 		var stabilizeAngle = 0.5; //Angle to stabilize wheels
 
-		console.log("Angle: " + this.wheelPosition);
+		//console.log("Angle: " + this.wheelPosition);
 		if(direction=="l" && this.wheelPosition<maxAngle ) //Left
 			this.wheelPosition += turnAngle;
 		else if(direction=="r" && this.wheelPosition>(-maxAngle))//Right
@@ -58,10 +58,10 @@ class MyVehicle extends CGFobject
 			this.wheelPosition += stabilizeAngle;
 	}
 
-	moveWheels(direction) {
+	moveWheels(direction,deltaTime) {
 		var maxVelocity = 4; //Max value to velocity
 		var maxRotation = 360; 
-		var rotation = 2*this.velocity; //Max rotation to each interation
+		var rotation = 180*this.velocity*(deltaTime/1000.0); //Max rotation to each interation
 		var acceleration = 1; //Value to acceleration (increase velocity)
 
 		if(direction=="f" && this.velocity<maxVelocity) //Increase Velocity
@@ -80,11 +80,14 @@ class MyVehicle extends CGFobject
 
 		//console.log("Rotação : "+this.wheelRotation);
 		//console.log("Velocidade : "+this.velocity);
+		//console.log("Unit Rotation : "+rotation);
+		//console.log("Time : "+deltaTime);
 	}
 
-	move() {
-		this.moveWheels(); //Move Wheels activated
-		this.posX += -this.velocity*0.05;
+	move(deltaTime) {
+		console.log("TIME2 : "+deltaTime);
+		this.moveWheels("", deltaTime); //Move Wheels activated
+		this.posX += -this.velocity*(deltaTime/1000);
 		this.rotY += this.wheelPosition;
 
 	}
