@@ -24,12 +24,21 @@ class TPscene extends CGFscene
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis=new CGFaxis(this);
-        this.sphere = new Sphere(this, 20, 6);
-	this.terrain = new MyTerrain(this);
+        //this.sphere = new Sphere(this, 20, 6);
+	//this.terrain = new MyTerrain(this);
+	this.trapeze = new MyTrapeze(this,-0.75,0.75,-0.25,0.25,1,1);
 
 	this.option1 = true;
 	this.option2 = false;
 	this.speed = 3;
+
+	
+		this.terrainAppearance = new CGFappearance(this);
+		this.terrainAppearance.loadTexture("../resources/images/terrain.jpg");
+		this.terrainAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.terrainAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.terrainAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.terrainAppearance.setShininess(120);
     };
 
 	doSomething() {
@@ -96,8 +105,10 @@ class TPscene extends CGFscene
 
         //this.obj.display();
 	this.pushMatrix();
-	this.scale(5,5,5);
-	this.terrain.display();
+	//this.scale(5,5,5);
+	this.terrainAppearance.apply();
+	this.trapeze.display();
+	//this.terrain.display();
 	this.popMatrix();
         
         // ---- END Primitive drawing section

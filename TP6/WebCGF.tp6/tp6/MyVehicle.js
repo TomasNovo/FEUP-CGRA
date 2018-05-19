@@ -22,7 +22,7 @@ class MyVehicle extends CGFobject
 		
 		this.sphere = new Sphere(this.scene, 20,30);
 
-		this.trapeze = new MyTrapeze(this.scene, 0 , 2 , 0.5 , 1.5, 1);
+		this.trapeze = new MyTrapeze(this.scene, 0 , 2 , 0.5 , 1.5, 1,1);
 
 		this.cylinder = new MyCylinder(this.scene,12,12);
 
@@ -177,7 +177,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
 		//this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(1.8,1,2.5);
-		this.scene.translate(-0.74,0.7,-0.5);
+		this.scene.translate(-0.74,0.7,0);
 		this.trapeze.display();
 		this.scene.popMatrix();
 

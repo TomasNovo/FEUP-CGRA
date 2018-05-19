@@ -1,6 +1,6 @@
 class MyTrapeze extends CGFobject
 {
-	constructor(scene, v1_x, v2_x, v3_x, v4_x, h) 
+	constructor(scene, v1_x, v2_x, v3_x, v4_x, h, w) 
 	{
 		super(scene);
 		this.v1_x = v1_x;
@@ -8,6 +8,7 @@ class MyTrapeze extends CGFobject
 		this.v3_x = v3_x;
 		this.v4_x = v4_x;
 		this.h = h;
+		this.w = w;
 
 		this.initBuffers();
 		
@@ -15,72 +16,146 @@ class MyTrapeze extends CGFobject
 
 	initBuffers() 
 	{
+		this.vertices =[
+			//Trapeze Front
+			this.v1_x,0,this.w/2.0,
+			this.v2_x,0,this.w/2.0,
+			this.v3_x,this.h,this.w/2.0,
+			this.v4_x,this.h,this.w/2.0,
 
-		//como cada vertice tem 3 faces, é necessário criar 3 vertices multiplicados
-		this.vertices =[this.v1_x,0,0, //0 
-						this.v2_x, 0, 0, //1
-						this.v3_x, this.h, 0, // 2
-						this.v4_x, this.h, 0, // 3
-						this.v1_x, 0,1, // 4 
-						this.v2_x, 0, 1, // 5 
-						this.v3_x, this.h, 1, //6
-						this.v4_x, this.h, 1,  //7
+			//Trapeze back
+			this.v1_x,0,-this.w/2.0,
+			this.v2_x,0,-this.w/2.0,
+			this.v3_x,this.h,-this.w/2.0,
+			this.v4_x,this.h,-this.w/2.0,
 
-						this.v1_x,0,0, //0
-						this.v2_x, 0, 0, //1
-						this.v3_x, this.h, 0, // 2
-						this.v4_x, this.h, 0, // 3
-						this.v1_x, 0,1, // 4 
-						this.v2_x, 0, 1, // 5 
-						this.v3_x, this.h, 1, //6
-						this.v4_x, this.h, 1,  //7
+			//Roof
+			this.v3_x,this.h,this.w/2.0,
+			this.v4_x,this.h,this.w/2.0,
+			this.v3_x,this.h,-this.w/2.0,
+			this.v4_x,this.h,-this.w/2.0,
 
-						this.v1_x,0,0, //0
-						this.v2_x, 0, 0, //1
-						this.v3_x, this.h, 0, // 2
-						this.v4_x, this.h, 0, // 3
-						this.v1_x, 0,1, // 4 
-						this.v2_x, 0, 1, // 5 
-						this.v3_x, this.h, 1, //6
-						this.v4_x, this.h, 1  //7	
-						];
+			//Floor
+			this.v1_x,0,this.w/2.0,
+			this.v2_x,0,this.w/2.0,
+			this.v1_x,0,-this.w/2.0,
+			this.v2_x,0,-this.w/2.0,
 
-		this.indices = [ // face 1
-						1,0,3,
-						2,3,0, 
-						4,5,6, // face 2
-						7,6,5,
-						0,4,2, // lateral esquerdo
-						6,2,4,
-						2,6,3, // cima
-						7,3,6,
-						5,1,7,// lateral direito
-						3,7,1,
-						1,5,0,//baixo
-						4,0,5
-						];
+			//Right side
+			this.v2_x,0,this.w/2.0,
+			this.v4_x,this.h,this.w/2.0,
+			this.v2_x,0,-this.w/2.0,
+			this.v4_x,this.h,-this.w/2.0,
 
-		this.normals = [0,0,-1,
-						0,0,-1,
-						0,0,-1,
-						0,0,-1,
-						0,0,1,
-						0,0,1,
-						0,0,1,
-						0,0,1,
+			//Left side
+			this.v1_x,0,this.w/2.0,
+			this.v3_x,this.h,this.w/2.0,
+			this.v1_x,0,-this.w/2.0,
+			this.v3_x,this.h,-this.w/2.0,
 
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						0,1,0,
-						];		
+		];
+
+		this.indices = [
+			//Trapeze front
+			0,1,2,
+			1,3,2,
+
+			//Trapeze back
+			4,6,5,
+			5,6,7,
+
+			//Roof
+			8,11,10,
+			8,9,11,
+
+			//Floor
+			12,14,13,
+			13,14,15,
+
+			//Right Side
+			16,19,17,
+			16,18,19,
+
+			//Left side
+			20,21,22,
+			21,23,22
+		];
+						
 		
-		//console.log(this.normals);
-		
+		this.normals = [
+			//Trapeze front
+			0,0,1,
+			0,0,1,
+			0,0,1,
+			0,0,1,
+
+			//Trapeze back
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+
+			//Roof
+			0,1,0,
+			0,1,0,
+			0,1,0,
+			0,1,0,
+
+			//Floor
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+
+			//Right Side
+			1,1,0,
+			1,1,0,
+			1,1,0,
+			1,1,0,
+
+			//Left side
+			-1,-1,0,
+			-1,-1,0,
+			-1,-1,0,
+			-1,-1,0
+
+		];		
+
+		this.texCoords = [
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+			
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+			
+			0,0,
+			0,1,
+			1,0,
+			1,1,
+		];
+
+
+
+
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};

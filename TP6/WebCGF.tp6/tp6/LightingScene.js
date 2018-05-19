@@ -83,26 +83,26 @@ class LightingScene extends CGFscene
 		this.light4 = true;
 		this.axisVisibility = false; //Modified by function updateAxis
 
-		this.terrainAppearance = new CGFappearance(this);
-		this.terrainAppearance.loadTexture("../resources/images/terrain.jpg");
-		this.terrainAppearance.setAmbient(1.0,1.0,1.0,1);
-		this.terrainAppearance.setDiffuse(1.0,1.0,1.0,1);
-		this.terrainAppearance.setSpecular(1.0,1.0,1.0,1);
-		this.terrainAppearance.setShininess(120);
+		this.vehicleAppearance = new CGFappearance(this);
+		this.vehicleAppearance.loadTexture("../resources/images/terrain.jpg");
+		this.vehicleAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.vehicleAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.vehicleAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.vehicleAppearance.setShininess(120);
 
-		this.terrainAppearance2 = new CGFappearance(this);
-        	this.terrainAppearance2.loadTexture("../resources/images/tire.png");
-        	this.terrainAppearance2.setAmbient(1.0,1.0,1.0,1);
-        	this.terrainAppearance2.setDiffuse(1.0,1.0,1.0,1);
-        	this.terrainAppearance2.setSpecular(1.0,1.0,1.0,1);
-        	this.terrainAppearance2.setShininess(120);
+		this.vehicleAppearance2 = new CGFappearance(this);
+        	this.vehicleAppearance2.loadTexture("../resources/images/tire.png");
+        	this.vehicleAppearance2.setAmbient(1.0,1.0,1.0,1);
+        	this.vehicleAppearance2.setDiffuse(1.0,1.0,1.0,1);
+        	this.vehicleAppearance2.setSpecular(1.0,1.0,1.0,1);
+        	this.vehicleAppearance2.setShininess(120);
 		
-		this.vehicleAppearances = [this.terrainAppearance, this.terrainAppearance2];
+		this.vehicleAppearances = [this.vehicleAppearance, this.vehicleAppearance2];
 		this.vehicleAppearanceList = {
 			'appearance1' : this.vehicleAppearances[0],
 			'appearance2' : this.vehicleAppearances[1]
 		}
-		this.currVehicleAppearance = "appearance1";
+		this.currVehicleAppearance = "appearance2";
 
 		// Scene elements
 		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
@@ -237,7 +237,7 @@ class LightingScene extends CGFscene
 
 			//Vehicle
 			this.pushMatrix();
-			//this.vehicleAppearanceList[this.currVehicleAppearance].apply();
+			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.translate(14,0.5,5);
 			this.vehicle.display();
 			this.popMatrix();
