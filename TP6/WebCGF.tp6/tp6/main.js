@@ -17,6 +17,9 @@ serialInclude([
 	'Wheel.js',
 	'Sphere.js',
 	'MyTrapeze2D.js',
+	'MyCrane.js',
+	'MyArm.js',
+	'MySky.js',
 	main=function() {
 		var app = new CGFapplication(document.body);
 		var myScene = new LightingScene();

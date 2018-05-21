@@ -8,16 +8,17 @@ class LightingScene extends CGFscene
 	};
 
 	update(currTime) {
-      		this.lastTime = this.lastTime || 0;
-		this.deltaTime = currTime - this.lastTime;
-		if(this.deltaTime<1000) {
-			this.checkKeys();
-			this.vehicle.move(this.deltaTime);
-		}
-      		this.lastTime = currTime;
-		
-		//this.checkKeys(this.deltaTime);
-		//this.vehicle.move("",);
+      		//this.lastTime = this.lastTime || 0;
+		//this.deltaTime = currTime - this.lastTime;
+		//if(this.deltaTime<1000) {
+		//	this.checkKeys();
+		//	this.vehicle.move(this.deltaTime);
+		//}
+      		//this.lastTime = currTime;
+		this.checkKeys();
+                this.vehicle.move();
+                this.crane.updateCrane();
+                this.crane.arm.updateArm();	
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
@@ -26,36 +27,38 @@ class LightingScene extends CGFscene
 
 	checkKeys() {
 		var text = "Keys pressed: ";
-		var keyPressed = false;
+                var keyPressed = false;
 
-		if(this.gui.isKeyPressed("KeyW")) {
-			text +=  " W ";
-			keyPressed = true;
-			this.vehicle.moveWheels("f",this.deltaTime);
-		}
+                if(this.gui.isKeyPressed("KeyW")) {
+                        text +=  " W ";
+                        keyPressed = true;
+                        this.vehicle.moveWheels("f");
+                }
+                else if(this.gui.isKeyPressed("KeyS")) {
+                        text += " S ";
+                        keyPressed = true;
+                        this.vehicle.moveWheels("b");
+                }
+                else
+                        this.vehicle.moveWheels("");
 
-		if(this.gui.isKeyPressed("KeyS")) {
-			text += " S ";
-			keyPressed = true;
-			this.vehicle.moveWheels("b",this.deltaTime);
-		}
+                if(this.gui.isKeyPressed("KeyA")) {
+                        text += " A ";
+                        keyPressed = true;
+                        this.vehicle.turnWheels("l");
+                }
+                else if(this.gui.isKeyPressed("KeyD")) {
+                        text += " D ";
+                        keyPressed = true;
+                        this.vehicle.turnWheels("r");
+                }
+                else
+                        this.vehicle.turnWheels("");
 
-		if(this.gui.isKeyPressed("KeyA")) {
-			text += " A ";
-			keyPressed = true;
-			this.vehicle.turnWheels("l");
-		}
-
-		if(this.gui.isKeyPressed("KeyD")) {
-			text += " D ";
-			keyPressed = true;
-			this.vehicle.turnWheels("r");
-		}
-
-		if(keyPressed)
-			console.log(text);
-		else
-			this.vehicle.turnWheels("s");
+                if(keyPressed)
+                        console.log(text);
+                else
+                        this.vehicle.turnWheels("s");
 	}
 
 	init(application) 
@@ -117,8 +120,9 @@ class LightingScene extends CGFscene
     				];
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this);
+		this.crane = new MyCrane(this);
 
-       		this.setUpdatePeriod(100);
+       		this.setUpdatePeriod(1000/60);
 	}
 
 	initCameras() 
@@ -241,6 +245,12 @@ class LightingScene extends CGFscene
 			this.translate(14,0.5,5);
 			this.vehicle.display();
 			this.popMatrix();
+
+			//Crane
+                        this.pushMatrix();
+                      	this.translate(0,2,0);
+                     	this.crane.display();
+                        this.popMatrix();
         
 
 		// ---- END Scene drawing section
