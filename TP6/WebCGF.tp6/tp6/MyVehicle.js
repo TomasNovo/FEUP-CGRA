@@ -83,9 +83,9 @@ class MyVehicle extends CGFobject
 		else if(direction=="s" && this.wheelPosition>=(-maxAngle) && this.wheelPosition<0) //Stabilize from Left
 			this.wheelPosition += stabilizeAngle;
 
-		if(direction == "l")
+		if(direction == "l" && this.velocity!=0)
 			this.rotationSpeed = Math.PI/50;
-		else if(direction == "r")
+		else if(direction == "r" && this.velocity!=0)
 			this.rotationSpeed = -Math.PI/50;
 		else
 			this.rotationSpeed = 0;
