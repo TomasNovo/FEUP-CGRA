@@ -101,7 +101,7 @@ class LightingScene extends CGFscene
 			'appearance1' : this.vehicleAppearances[0],
 			'appearance2' : this.vehicleAppearances[1]
 		}
-		this.currVehicleAppearance = "appearance2";
+		this.currVehicleAppearance = "appearance1";
 
 		// Scene elements
 		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
