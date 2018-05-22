@@ -94,7 +94,7 @@ class MyVehicle extends CGFobject
 	}
 
 	moveWheels(direction) {
-		var maxVelocity = 4; //Max value to velocity
+		var maxVelocity = 6; //Max value to velocity
 		var maxRotation = 360; 
 		var rotation = 2*this.velocity; //Max rotation to each interation
 		var acceleration = 1; //Value to acceleration (increase velocity)
