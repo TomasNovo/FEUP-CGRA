@@ -99,43 +99,40 @@ class MyVehicle extends CGFobject
 		var rotation = 2*this.velocity; //Max rotation to each interation
 		var acceleration = 1; //Value to acceleration (increase velocity)
 
-		/*if(direction=="f" && this.velocity<maxVelocity) //Increase Velocity
+		if(direction=="f" && this.velocity<maxVelocity) //Increase Velocity
 				this.velocity += acceleration;
 
 		else if(direction=="b" && this.velocity>(-maxVelocity)) //Decrease Velocity
 			this.velocity -= acceleration;
 
 
-		this.wheelRotation += rotation;
+		//this.wheelRotation += rotation;
 
-		if(this.wheelRotation>(maxRotation))
-			this.wheelRotation = 0;
-		else if(this.wheelRotation<(-maxRotation))
-			this.wheelRotation = 0;*/
-
-
-		//if(this.direction == "b")
+		//if(this.wheelRotation>(maxRotation))
+			//this.wheelRotation = 0;
+		//else if(this.wheelRotation<(-maxRotation))
+			//this.wheelRotation = 0;
 
 
 		//console.log("Rotação : "+this.wheelRotation);
-		//console.log("Velocidade : "+this.velocity); 
+		console.log("Velocidade : "+this.velocity); 
 
-		if (direction == "f")
-			this.velocity = 0.2;
-		else if (direction == "b")
-			this.velocity = -0.2;
-		else
-			this.velocity = 0;
+		//if (direction == "f")
+			//this.velocity = 0.2;
+		//else if (direction == "b")
+			//this.velocity = -0.2;
+		//else
+			//this.velocity = 0;
 
 	}
 
-	move() { 
+	move(deltaTime) { 
 		//this.moveWheels(); //Move Wheels activated
 		
 		this.rotY += this.rotationSpeed;
 
-		this.position[0] += this.velocity*Math.sin(this.rotY);
-		this.position[2] += this.velocity*Math.cos(this.rotY);
+		this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
+		this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
 
 		this.frontRotation += this.velocity/2;
 	}
@@ -146,7 +143,7 @@ class MyVehicle extends CGFobject
 		//Moving Car
 		
 		var coco = this.frontRotation;
-		console.log(coco);
+		//console.log(coco);
 		
 		this.scene.translate(this.position[0], this.position[1], this.position[2]);
 

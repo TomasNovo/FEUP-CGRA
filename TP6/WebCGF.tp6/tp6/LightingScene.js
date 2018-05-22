@@ -8,17 +8,20 @@ class LightingScene extends CGFscene
 	};
 
 	update(currTime) {
-      		//this.lastTime = this.lastTime || 0;
-		//this.deltaTime = currTime - this.lastTime;
-		//if(this.deltaTime<1000) {
-		//	this.checkKeys();
-		//	this.vehicle.move(this.deltaTime);
-		//}
-      		//this.lastTime = currTime;
-		this.checkKeys();
-                this.vehicle.move();
-                this.crane.updateCrane();
-                this.crane.arm.updateArm();	
+      		this.lastTime = this.lastTime || 0;
+		this.deltaTime = currTime - this.lastTime;
+		if(this.deltaTime<1000) {
+			this.checkKeys();
+			this.vehicle.move(this.deltaTime);
+			this.crane.updateCrane();
+			this.crane.arm.updateArm();
+
+		}
+      		this.lastTime = currTime;
+		//this.checkKeys();
+                //this.vehicle.move();
+                //this.crane.updateCrane();
+                //this.crane.arm.updateArm();	
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
