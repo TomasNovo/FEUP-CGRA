@@ -41,6 +41,10 @@ class MyCylinder extends CGFobject
 				if(w!=this.stacks) {
 					this.indices.push(w*this.slices+i,w*this.slices+((i+1)%this.slices),(w+1)*this.slices+(i+1)%this.slices);
 					this.indices.push(w*this.slices+i,(w+1)*this.slices+((i+1)%this.slices),(w+1)*this.slices+i);
+					
+					//Oposite
+					this.indices.push((w+1)*this.slices+(i+1)%this.slices,w*this.slices+((i+1)%this.slices),w*this.slices+i);
+					this.indices.push((w+1)*this.slices+i,(w+1)*this.slices+((i+1)%this.slices),w*this.slices+i);
 				}
 				texCoordX += 1/this.stacks;
 			}

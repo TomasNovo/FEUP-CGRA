@@ -83,6 +83,14 @@ class LightingScene extends CGFscene
 		this.light4 = true;
 		this.axisVisibility = false; //Modified by function updateAxis
 
+
+		this.basicAppearance = new CGFappearance(this);
+		this.basicAppearance.loadTexture("../resources/images/feup.png");
+		this.basicAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.basicAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.basicAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.basicAppearance.setShininess(120);
+
 		this.vehicleAppearance = new CGFappearance(this);
 		this.vehicleAppearance.loadTexture("../resources/images/red.png");
 		this.vehicleAppearance.setAmbient(1.0,1.0,1.0,1);
@@ -127,6 +135,9 @@ class LightingScene extends CGFscene
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this, this.vehicleAppearanceList[this.currVehicleAppearance]);
 		this.crane = new MyCrane(this);
+		this.cylinder = new MyCylinder(this, 12, 1);
+		this.sphere = new Sphere(this, 20, 20);
+		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
 
        		this.setUpdatePeriod(100);
 	}
@@ -257,6 +268,33 @@ class LightingScene extends CGFscene
                       	this.translate(0,2,0);
                      	this.crane.display();
                         this.popMatrix();
+
+			//Basic Forms
+			//Cylinder
+			this.pushMatrix();
+			this.rotate(Math.PI/2,1,0,0);
+			this.translate(20,0,-5);
+			this.scale(1,1,5);
+			this.basicAppearance.apply();
+			this.cylinder.display();
+			this.popMatrix();
+
+			//Trapeze
+			this.pushMatrix();
+			this.translate(20,0,-5);
+			this.scale(2,2,2);
+			this.basicAppearance.apply();
+			this.trapeze.display();
+			this.popMatrix();
+		
+			//Sphere
+			this.pushMatrix();
+			this.translate(20,0,-9);
+			this.scale(2,2,2);
+			this.basicAppearance.apply();
+			this.sphere.display();
+			this.popMatrix();
+			
         
 
 		// ---- END Scene drawing section
