@@ -93,29 +93,29 @@ class MyVehicle extends CGFobject
 				
 	}
 
-	moveWheels(direction) {
+	moveWheels(direction,deltaTime) {
 		var maxVelocity = 6; //Max value to velocity
 		var maxRotation = 360; 
-		var rotation = 2*this.velocity; //Max rotation to each interation
+		var rotation = 180*this.velocity*(deltaTime/1000.0); //Max rotation to each interation
 		var acceleration = 1; //Value to acceleration (increase velocity)
 
 		if(direction=="f" && this.velocity<maxVelocity) //Increase Velocity
-				this.velocity += acceleration;
+			this.velocity += acceleration;
 
 		else if(direction=="b" && this.velocity>(-maxVelocity)) //Decrease Velocity
 			this.velocity -= acceleration;
 
 
-		//this.wheelRotation += rotation;
+		this.wheelRotation += rotation;
 
-		//if(this.wheelRotation>(maxRotation))
-			//this.wheelRotation = 0;
-		//else if(this.wheelRotation<(-maxRotation))
-			//this.wheelRotation = 0;
+		if(this.wheelRotation>(maxRotation))
+			this.wheelRotation = 0;
+		else if(this.wheelRotation<(-maxRotation))
+			this.wheelRotation = 0;
 
 
-		//console.log("Rotação : "+this.wheelRotation);
-		console.log("Velocidade : "+this.velocity); 
+		console.log("Rotação : "+this.wheelRotation);
+		console.log("Velocidade : "+this.velocity);
 
 		//if (direction == "f")
 			//this.velocity = 0.2;
@@ -127,7 +127,7 @@ class MyVehicle extends CGFobject
 	}
 
 	move(deltaTime) { 
-		//this.moveWheels(); //Move Wheels activated
+		this.moveWheels("",deltaTime); //Move Wheels activated
 		
 		this.rotY += this.rotationSpeed;
 

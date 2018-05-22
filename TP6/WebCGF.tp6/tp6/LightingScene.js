@@ -28,15 +28,15 @@ class LightingScene extends CGFscene
                 if(this.gui.isKeyPressed("KeyW")) {
                         text +=  " W ";
                         keyPressed = true;
-                        this.vehicle.moveWheels("f");
+                        this.vehicle.moveWheels("f",this.deltaTime);
                 }
                 else if(this.gui.isKeyPressed("KeyS")) {
                         text += " S ";
                         keyPressed = true;
-                        this.vehicle.moveWheels("b");
+                        this.vehicle.moveWheels("b",this.deltaTime);
                 }
                 else
-                        this.vehicle.moveWheels("");
+                        this.vehicle.moveWheels("",this.deltaTime);
 
                 if(this.gui.isKeyPressed("KeyA")) {
                         text += " A ";
@@ -118,7 +118,7 @@ class LightingScene extends CGFscene
 		this.vehicle = new MyVehicle(this);
 		this.crane = new MyCrane(this);
 
-       		this.setUpdatePeriod(1000/60);
+       		this.setUpdatePeriod(100);
 	}
 
 	initCameras() 
