@@ -70,9 +70,9 @@ class MyVehicle extends CGFobject
 
 	turnWheels(direction) {
 		var maxAngle = 15; //Max inclination angle
-		var turnAngle = 0.5; //Turn Angle in each interation
-		var stabilizeAngle = 0.5; //Angle to stabilize wheels
-/*
+		var turnAngle = 3; //Turn Angle in each interation
+		var stabilizeAngle = 3; //Angle to stabilize wheels
+
 		console.log("Angle: " + this.wheelPosition);
 		if(direction=="l" && this.wheelPosition<maxAngle ) //Left
 			this.wheelPosition += turnAngle;
@@ -82,7 +82,6 @@ class MyVehicle extends CGFobject
 			this.wheelPosition -= stabilizeAngle;
 		else if(direction=="s" && this.wheelPosition>=(-maxAngle) && this.wheelPosition<0) //Stabilize from Left
 			this.wheelPosition += stabilizeAngle;
-			*/
 
 		if(direction == "l")
 			this.rotationSpeed = Math.PI/50;
