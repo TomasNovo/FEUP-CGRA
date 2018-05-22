@@ -135,7 +135,7 @@ class LightingScene extends CGFscene
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this, this.vehicleAppearanceList[this.currVehicleAppearance]);
 		this.crane = new MyCrane(this);
-		this.cylinder = new MyCylinder(this, 12, 1);
+		this.cylinder = new MyCylinder(this, 6, 1);
 		this.sphere = new Sphere(this, 20, 20);
 		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
 
@@ -272,8 +272,10 @@ class LightingScene extends CGFscene
 			//Basic Forms
 			//Cylinder
 			this.pushMatrix();
+
 			this.rotate(Math.PI/2,1,0,0);
 			this.translate(20,0,-5);
+			this.rotate(Math.PI,0,0,1);
 			this.scale(1,1,5);
 			this.basicAppearance.apply();
 			this.cylinder.display();
