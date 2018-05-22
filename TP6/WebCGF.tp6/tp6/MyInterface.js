@@ -77,7 +77,7 @@ class MyInterface extends CGFinterface {
 		LightGroup.add(this.scene, 'light4');
 
 		//Vehicle Appearance drop-down menu
-		this.gui.add(this.scene, 'currVehicleAppearance', ['appearance1', 'appearance2' ]);
+		this.gui.add(this.scene, 'currVehicleAppearance', ['appearance1', 'appearance2', 'appearance3' ]);
 
 		
 		this.initKeys(); 

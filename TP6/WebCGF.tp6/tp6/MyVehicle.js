@@ -6,10 +6,11 @@
 var degToRad = Math.PI / 180.0;
 class MyVehicle extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene, currAppearance) 
 	{
 		super(scene);
 		this.scene = scene;
+		this.currAppearance = currAppearance;
 		this.initBuffers();
 	};
 
@@ -17,20 +18,20 @@ class MyVehicle extends CGFobject
 	{
 		
 		//car appearance
-		this.carAppearance = new CGFappearance(this.scene);
-		this.carAppearance.loadTexture("../resources/images/red.png");
-		this.carAppearance.setAmbient(1.0,1.0,1.0,1);
-		this.carAppearance.setDiffuse(1.0,1.0,1.0,1);
-		this.carAppearance.setSpecular(1.0,1.0,1.0,1);
-		this.carAppearance.setShininess(120);
+		//this.carAppearance = new CGFappearance(this.scene);
+		//this.carAppearance.loadTexture("../resources/images/red.png");
+		//this.carAppearance.setAmbient(1.0,1.0,1.0,1);
+		//this.carAppearance.setDiffuse(1.0,1.0,1.0,1);
+		//this.carAppearance.setSpecular(1.0,1.0,1.0,1);
+		//this.carAppearance.setShininess(120);
 
 		//glass appearance
-		this.glassAppearance = new CGFappearance(this.scene);
-		this.glassAppearance.loadTexture("../resources/images/glass.jpg");
-		this.glassAppearance.setAmbient(1.0,1.0,1.0,1);
-		this.glassAppearance.setDiffuse(1.0,1.0,1.0,1);
-		this.glassAppearance.setSpecular(1.0,1.0,1.0,1);
-		this.glassAppearance.setShininess(120);
+		//this.glassAppearance = new CGFappearance(this.scene);
+		//this.glassAppearance.loadTexture("../resources/images/glass.jpg");
+		//this.glassAppearance.setAmbient(1.0,1.0,1.0,1);
+		//this.glassAppearance.setDiffuse(1.0,1.0,1.0,1);
+		//this.glassAppearance.setSpecular(1.0,1.0,1.0,1);
+		//this.glassAppearance.setShininess(120);
 
 		this.position = [0,0,0];
 
@@ -73,7 +74,7 @@ class MyVehicle extends CGFobject
 		var turnAngle = 3; //Turn Angle in each interation
 		var stabilizeAngle = 3; //Angle to stabilize wheels
 
-		console.log("Angle: " + this.wheelPosition);
+		//console.log("Angle: " + this.wheelPosition);
 		if(direction=="l" && this.wheelPosition<maxAngle ) //Left
 			this.wheelPosition += turnAngle;
 		else if(direction=="r" && this.wheelPosition>(-maxAngle))//Right
@@ -113,8 +114,8 @@ class MyVehicle extends CGFobject
 			this.wheelRotation = 0;
 
 
-		console.log("Rotação : "+this.wheelRotation);
-		console.log("Velocidade : "+this.velocity);
+		//console.log("Rotação : "+this.wheelRotation);
+		//console.log("Velocidade : "+this.velocity);
 
 		//if (direction == "f")
 			//this.velocity = 0.2;
@@ -136,6 +137,9 @@ class MyVehicle extends CGFobject
 		this.frontRotation += this.velocity/2;
 	}
 
+	changeAppearance(appearance) {
+		this.currAppearance = appearance;	
+	}
 
 	display()
 	{
@@ -196,7 +200,8 @@ class MyVehicle extends CGFobject
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(2.5,0.7,1);
 		this.scene.translate(0,0.5,2.25);
-		this.carAppearance.apply();
+		//this.carAppearance.apply();
+		this.currAppearance.apply();
 		this.quad.display();  // para choques
 		this.scene.popMatrix();
 
@@ -232,7 +237,8 @@ class MyVehicle extends CGFobject
 		//this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(1.8,1,2.5);
 		this.scene.translate(-0.74,0.7,0);
-		this.glassAppearance.apply();
+		this.currAppearance.apply();
+		//this.glassAppearance.apply();
 		this.trapeze.display();
 		this.scene.popMatrix();
 

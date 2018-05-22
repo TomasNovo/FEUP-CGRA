@@ -15,6 +15,7 @@ class LightingScene extends CGFscene
 		this.crane.updateCrane();
 		this.crane.arm.updateArm();
       		this.lastTime = currTime;
+		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
@@ -83,23 +84,32 @@ class LightingScene extends CGFscene
 		this.axisVisibility = false; //Modified by function updateAxis
 
 		this.vehicleAppearance = new CGFappearance(this);
-		this.vehicleAppearance.loadTexture("../resources/images/terrain.jpg");
+		this.vehicleAppearance.loadTexture("../resources/images/red.png");
 		this.vehicleAppearance.setAmbient(1.0,1.0,1.0,1);
 		this.vehicleAppearance.setDiffuse(1.0,1.0,1.0,1);
 		this.vehicleAppearance.setSpecular(1.0,1.0,1.0,1);
 		this.vehicleAppearance.setShininess(120);
 
 		this.vehicleAppearance2 = new CGFappearance(this);
-        	this.vehicleAppearance2.loadTexture("../resources/images/tire.png");
+        	this.vehicleAppearance2.loadTexture("../resources/images/blue-car.jpg");
         	this.vehicleAppearance2.setAmbient(1.0,1.0,1.0,1);
         	this.vehicleAppearance2.setDiffuse(1.0,1.0,1.0,1);
         	this.vehicleAppearance2.setSpecular(1.0,1.0,1.0,1);
         	this.vehicleAppearance2.setShininess(120);
 		
-		this.vehicleAppearances = [this.vehicleAppearance, this.vehicleAppearance2];
+		this.vehicleAppearance3 = new CGFappearance(this);
+        	this.vehicleAppearance3.loadTexture("../resources/images/nosim-car.gif");
+        	this.vehicleAppearance3.setAmbient(1.0,1.0,1.0,1);
+        	this.vehicleAppearance3.setDiffuse(1.0,1.0,1.0,1);
+        	this.vehicleAppearance3.setSpecular(1.0,1.0,1.0,1);
+        	this.vehicleAppearance3.setShininess(120);
+
+		
+		this.vehicleAppearances = [this.vehicleAppearance, this.vehicleAppearance2, this.vehicleAppearance3];
 		this.vehicleAppearanceList = {
 			'appearance1' : this.vehicleAppearances[0],
-			'appearance2' : this.vehicleAppearances[1]
+			'appearance2' : this.vehicleAppearances[1],
+			'appearance3' : this.vehicleAppearances[2]
 		}
 		this.currVehicleAppearance = "appearance1";
 
@@ -115,7 +125,7 @@ class LightingScene extends CGFscene
 				[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ,0]
     				];
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
-		this.vehicle = new MyVehicle(this);
+		this.vehicle = new MyVehicle(this, this.vehicleAppearanceList[this.currVehicleAppearance]);
 		this.crane = new MyCrane(this);
 
        		this.setUpdatePeriod(100);
@@ -130,16 +140,16 @@ class LightingScene extends CGFscene
 	{
 		this.setGlobalAmbientLight(0,0,0, 1);
 		// Positions for four lights
-		this.lights[0].setPosition(4, 6, 1, 1);
+		this.lights[0].setPosition(-12.5, 6, 12.5, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		
-		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+		this.lights[1].setPosition(-12.5, 6.0, -12.5, 1.0);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+		this.lights[2].setPosition(12.5, 6.0, 12.5, 1.0);
                 this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[3].setPosition(4, 6, 5, 1);
+		this.lights[3].setPosition(12.5, 6, -12.5, 1);
                 this.lights[3].setVisible(true);
 
 
@@ -155,17 +165,17 @@ class LightingScene extends CGFscene
 		this.lights[2].setAmbient(0, 0, 0, 1);
                 this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[2].setSpecular( 1.0, 1.0, 1.0, 1.0 );
-		this.lights[2].setConstantAttenuation(0); // kc
-		this.lights[2].setLinearAttenuation(1.0); // kl
-		this.lights[2].setQuadraticAttenuation(0); // kq
+		//this.lights[2].setConstantAttenuation(0); // kc
+		//this.lights[2].setLinearAttenuation(1.0); // kl
+		//this.lights[2].setQuadraticAttenuation(0); // kq
                 this.lights[2].enable();
 
 		this.lights[3].setAmbient(0, 0, 0, 1);
                 this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
                 this.lights[3].setSpecular( 1.0, 1.0, 0, 1.0 );
-		this.lights[3].setConstantAttenuation(0); // kc
-                this.lights[3].setLinearAttenuation(0); // kl
-                this.lights[3].setQuadraticAttenuation(0.2); // kq<Paste>
+		//this.lights[3].setConstantAttenuation(0); // kc
+                //this.lights[3].setLinearAttenuation(0); // kl
+                //this.lights[3].setQuadraticAttenuation(0.2); // kq<Paste>
                 this.lights[3].enable();
 	};
 
@@ -228,8 +238,8 @@ class LightingScene extends CGFscene
 		
 			//Terrain
 			this.pushMatrix();
-			//this.terrain.terrainAppearance.apply();
-			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
+			this.terrain.terrainAppearance.apply();
+			//this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.scale(50,50,1);
 			this.terrain.display();
