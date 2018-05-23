@@ -13,8 +13,8 @@ class LightingScene extends CGFscene
 		this.checkKeys();
 		this.vehicle.move(this.deltaTime);
 		this.crane.updateCrane();
-		this.crane.arm.updateArm();
-      		this.lastTime = currTime;
+		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2]);
+		this.lastTime = currTime;
 		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
 	};
 	
@@ -84,12 +84,28 @@ class LightingScene extends CGFscene
 		this.axisVisibility = false; //Modified by function updateAxis
 
 
+		//Appearances
 		this.basicAppearance = new CGFappearance(this);
 		this.basicAppearance.loadTexture("../resources/images/feup.png");
 		this.basicAppearance.setAmbient(1.0,1.0,1.0,1);
 		this.basicAppearance.setDiffuse(1.0,1.0,1.0,1);
 		this.basicAppearance.setSpecular(1.0,1.0,1.0,1);
 		this.basicAppearance.setShininess(120);
+
+
+		this.target1Appearance = new CGFappearance(this);
+		this.target1Appearance.loadTexture("../resources/images/target1.png");
+		this.target1Appearance.setAmbient(1.0,1.0,1.0,1);
+		this.target1Appearance.setDiffuse(1.0,1.0,1.0,1);
+		this.target1Appearance.setSpecular(1.0,1.0,1.0,1);
+		this.target1Appearance.setShininess(120);
+		
+		this.target2Appearance = new CGFappearance(this);
+		this.target2Appearance.loadTexture("../resources/images/target2.png");
+		this.target2Appearance.setAmbient(1.0,1.0,1.0,1);
+		this.target2Appearance.setDiffuse(1.0,1.0,1.0,1);
+		this.target2Appearance.setSpecular(1.0,1.0,1.0,1);
+		this.target2Appearance.setShininess(120);
 
 		this.vehicleAppearance = new CGFappearance(this);
 		this.vehicleAppearance.loadTexture("../resources/images/red.png");
@@ -111,7 +127,6 @@ class LightingScene extends CGFscene
         	this.vehicleAppearance3.setDiffuse(1.0,1.0,1.0,1);
         	this.vehicleAppearance3.setSpecular(1.0,1.0,1.0,1);
         	this.vehicleAppearance3.setShininess(120);
-
 		
 		this.vehicleAppearances = [this.vehicleAppearance, this.vehicleAppearance2, this.vehicleAppearance3];
 		this.vehicleAppearanceList = {
@@ -123,21 +138,22 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
-				[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ,0],
+				[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 0, 0.0, 0.0 ,0],
+				[ 2.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
 				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
-				[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ,0]
+				[ 0.0 , 0.0 , 0.0, 0.0, 0, 0, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 1.5, 1.5, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 4.0 ,0],
+				[ 2.0 , 2.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 4.0 ,0],
+				[ 4.0 , 3.0 , 2.0, 2.0, 0.0, 0.0, 3.0, 0.0 ,0]
     				];
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this, this.vehicleAppearanceList[this.currVehicleAppearance]);
-		this.crane = new MyCrane(this);
+		this.crane = new MyCrane(this, this.vehicle);
 		this.cylinder = new MyCylinder(this, 6, 1);
 		this.sphere = new Sphere(this, 20, 20);
 		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
+		this.target = new MyQuad(this, 0, 1, 0, 1);
 
        		this.setUpdatePeriod(100);
 	}
@@ -265,9 +281,31 @@ class LightingScene extends CGFscene
 
 			//Crane
                         this.pushMatrix();
-                      	this.translate(0,2,0);
+                      	this.translate(5,1.5,7);
                      	this.crane.display();
                         this.popMatrix();
+			
+			//first Target x: [5 , 7.5]  y: [0,0]  z: [13.5,18.5]
+			this.pushMatrix();
+			this.translate(5,0.01,15.5);
+			this.rotate(-Math.PI/2,0,1,0);
+			this.rotate(Math.PI,1,0,0);
+			this.rotate(Math.PI/2,1,0,0);
+			this.scale(5,6,1);            //
+			this.target1Appearance.apply();
+			this.target.display();
+			this.popMatrix();
+
+			//second Target
+			this.pushMatrix();
+			this.translate(5,0.1,-2);
+			this.rotate(-Math.PI/2,0,1,0);
+			this.rotate(Math.PI,1,0,0);
+			this.rotate(Math.PI/2,1,0,0);
+			this.scale(5,6,1);            //
+			this.target2Appearance.apply();
+			this.target.display();
+			this.popMatrix();
 
 			//Basic Forms
 			//Cylinder
