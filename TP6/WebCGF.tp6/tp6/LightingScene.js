@@ -13,7 +13,7 @@ class LightingScene extends CGFscene
 		this.checkKeys();
 		this.vehicle.move(this.deltaTime);
 		this.crane.updateCrane();
-		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2]);
+		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2], this.vehicle.velocity);
 		this.lastTime = currTime;
 		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
 	};
@@ -155,7 +155,7 @@ class LightingScene extends CGFscene
 		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
 		this.target = new MyQuad(this, 0, 1, 0, 1);
 
-       		this.setUpdatePeriod(100);
+       		this.setUpdatePeriod(1000/60);
 	}
 
 	initCameras() 

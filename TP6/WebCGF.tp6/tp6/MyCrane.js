@@ -32,12 +32,17 @@ class MyCrane extends CGFobject
 	}
 
 
-	checkCarPosition(posX, posZ)
+	checkCarPosition(posX, posZ, speed)
 	{
 
-		if((posZ > 8 && posZ < 12) && (posX > -12 && posX < -8) ) {
+		if( (posZ > 8 && posZ < 12) && (posX > -12 && posX < -8) && speed == 0 ) {
 			this.vehicleIn = 1;
 			console.log("ENTROU NO TARGET!");
+		}
+		else
+		{
+			this.cranetimer = 0;
+			this.vehicleIn = 0;
 		}
 		console.log("X : "+posX+"\nZ : "+posZ);
 	}
