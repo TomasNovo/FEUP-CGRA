@@ -273,11 +273,13 @@ class LightingScene extends CGFscene
 			this.popMatrix();
 
 			//Vehicle
+		if(!this.vehicle.isCarOnCrane) {
 			this.pushMatrix();
 			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.translate(14,0.5,5);
 			this.vehicle.display();
 			this.popMatrix();
+		}
 
 			//Crane
                         this.pushMatrix();

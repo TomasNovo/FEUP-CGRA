@@ -53,7 +53,9 @@ class MyVehicle extends CGFobject
 		this.wheelRotation = 0; //Wheel Rotation from -2*pi to 2*pi
 		this.rotY = 0; //Car rotation in axi Y
 		this.rotationSpeed = 0;
-		this.frontRotation = 0;
+		//this.frontRotation = 0;
+
+		this.isCarOnCrane = false;
 
 		/*this.posX = 0;
 		this.posZ = 0;
@@ -127,14 +129,16 @@ class MyVehicle extends CGFobject
 	}
 
 	move(deltaTime) { 
-		this.moveWheels("",deltaTime); //Move Wheels activated
+		if(!this.isCarOnCrane) {
+			this.moveWheels("",deltaTime); //Move Wheels activated
 		
-		this.rotY += this.rotationSpeed;
+			this.rotY += this.rotationSpeed;
 
-		this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
-		this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
+			this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
+			this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
 
-		this.frontRotation += this.velocity/2;
+			//this.frontRotation += this.velocity/2;
+		}
 	}
 
 	changeAppearance(appearance) {
@@ -145,7 +149,7 @@ class MyVehicle extends CGFobject
 	{
 		//Moving Car
 		
-		var coco = this.frontRotation;
+		//var coco = this.frontRotation;
 		//console.log(coco);
 		
 		this.scene.translate(this.position[0], this.position[1], this.position[2]);
@@ -185,7 +189,7 @@ class MyVehicle extends CGFobject
 		this.scene.translate(-2.5,0,-3.5);
 		this.scene.rotate(degToRad*this.wheelPosition,0,1,0); //Turn Left/Right
 		this.scene.rotate(degToRad*this.wheelRotation, 0,0,1); //Rotate
-		this.scene.rotate(this.frontRotation, 0, 0, 1);
+		//this.scene.rotate(this.frontRotation, 0, 0, 1);
 		this.wheel.display(); // roda 3 
 		this.scene.popMatrix();
 
