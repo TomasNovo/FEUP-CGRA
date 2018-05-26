@@ -266,8 +266,7 @@ class MyCrane extends CGFobject
 		
 
         this.scene.pushMatrix();
-        this.scene.translate(0,-9,0);
-        this.scene.scale(1,10,1);
+        this.scene.translate(0,0,0);
         this.scene.rotate(-Math.PI/2,1,0,0);
         this.cylinder.display();
         this.scene.popMatrix();
