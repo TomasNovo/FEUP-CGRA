@@ -195,7 +195,7 @@ class LightingScene extends CGFscene
 
 		this.crane.craneVehicleSet(this.vehicle);
 
-       	this.setUpdatePeriod(1000/60);
+       	this.setUpdatePeriod(100);
 	}
 
 	initCameras() 
