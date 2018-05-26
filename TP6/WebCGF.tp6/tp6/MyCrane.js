@@ -75,6 +75,14 @@ class MyCrane extends CGFobject
 
 		this.high = 0;
 
+		this.craneAppearance = new CGFappearance(this.scene);
+		this.craneAppearance.loadTexture("../resources/images/red.png");
+		this.craneAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.craneAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.craneAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.craneAppearance.setShininess(120);
+
+
 	};
 
 
@@ -254,7 +262,9 @@ class MyCrane extends CGFobject
 	    if(this.vehicleDisplay == 1)
 	    {
 	    this.scene.translate(4 + 5*Math.cos(this.armAngle),6.75 + 5*Math.sin(this.armAngle)- 5.8,0);
-	    
+	this.vehicle.currAppearance = this.sceneVehicle.currAppearance;	
+		this.vehicle.currAppearance.apply();
+
 	    this.vehicle.display();
 	    }
 	    else
@@ -268,6 +278,7 @@ class MyCrane extends CGFobject
         this.scene.pushMatrix();
         this.scene.translate(0,0,0);
         this.scene.rotate(-Math.PI/2,1,0,0);
+	this.craneAppearance.apply();
         this.cylinder.display();
         this.scene.popMatrix();
 

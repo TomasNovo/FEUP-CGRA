@@ -15,6 +15,7 @@ class LightingScene extends CGFscene
 		
 		this.vehicle.move(this.deltaTime);
 		this.crane.move(this.deltaTime);
+		this.crane.craneVehicleSet(this.vehicle);
 		this.crane.updateCrane();
 		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2], this.vehicle.velocity);
 		
@@ -314,7 +315,7 @@ class LightingScene extends CGFscene
 
 			//Vehicle
 			this.pushMatrix();
-			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
+			//this.vehicleAppearanceList[this.currVehicleAppearance].apply();
 			this.translate(5,0.5,-1.7);
 			this.rotate(Math.PI/2,0,1,0);
 			if(this.crane.vehicleDisplay == 0)
@@ -324,7 +325,7 @@ class LightingScene extends CGFscene
 			//Crane
             		this.pushMatrix();
            		this.translate(5,1.5,7);
-			this.vehicleAppearanceList["appearance1"].apply();
+			//this.vehicleAppearanceList["appearance1"].apply();
             		this.crane.display();
             		this.popMatrix();
 			
