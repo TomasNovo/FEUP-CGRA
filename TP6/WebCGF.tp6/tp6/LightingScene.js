@@ -322,10 +322,11 @@ class LightingScene extends CGFscene
 			this.popMatrix();
 
 			//Crane
-            this.pushMatrix();
-           	this.translate(5,1.5,7);
-            this.crane.display();
-            this.popMatrix();
+            		this.pushMatrix();
+           		this.translate(5,1.5,7);
+			this.vehicleAppearanceList["appearance1"].apply();
+            		this.crane.display();
+            		this.popMatrix();
 			
 			//first Target x: [5 , 7.5]  y: [0,0]  z: [13.5,18.5]
 			this.pushMatrix();
@@ -352,7 +353,6 @@ class LightingScene extends CGFscene
 			//Basic Forms
 			//Cylinder
 			this.pushMatrix();
-
 			this.rotate(Math.PI/2,1,0,0);
 			this.translate(20,0,-5);
 			this.rotate(Math.PI,0,0,1);
