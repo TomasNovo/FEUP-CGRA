@@ -26,12 +26,20 @@ class MyVehicle extends CGFobject
 		//this.carAppearance.setShininess(120);
 
 		//glass appearance
-		//this.glassAppearance = new CGFappearance(this.scene);
-		//this.glassAppearance.loadTexture("../resources/images/glass.jpg");
-		//this.glassAppearance.setAmbient(1.0,1.0,1.0,1);
-		//this.glassAppearance.setDiffuse(1.0,1.0,1.0,1);
-		//this.glassAppearance.setSpecular(1.0,1.0,1.0,1);
-		//this.glassAppearance.setShininess(120);
+		this.glassAppearance = new CGFappearance(this.scene);
+		this.glassAppearance.loadTexture("../resources/images/glass.jpg");
+		this.glassAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.glassAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.glassAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.glassAppearance.setShininess(120);
+
+		this.glassBackAppearance= new CGFappearance(this.scene);
+		this.glassBackAppearance.loadTexture("../resources/images/glass_back.jpg");
+		this.glassBackAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.glassBackAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.glassBackAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.glassBackAppearance.setShininess(120);
+
 
 		this.position = [0,0,0];
 
@@ -263,23 +271,60 @@ class MyVehicle extends CGFobject
 		this.scene.scale(1/3,1/3,1/3);
 		this.scene.rotate(Math.PI/2,0,0,1);
 		this.scene.translate(1.05,6.67,2);
-		this.sphere.display();
+		this.glassAppearance.apply();
+		this.sphere.display(); //farol
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(1/3,1/3,1/3);
 		this.scene.rotate(Math.PI/2,0,0,1);
 		this.scene.translate(1.05,6.67,-2);
-		this.sphere.display();
+		this.glassAppearance.apply();
+		this.sphere.display(); //farol
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(1/8,1/8,1/3);
 		this.scene.translate(5,1.1,6.7);
-		this.cylinder.display();
+		this.cylinder.display(); //descarga
 		this.scene.popMatrix();
 
+		//back glass
+		this.scene.pushMatrix();
+		this.scene.translate(2.17,0.9,1);
+		this.scene.rotate(Math.PI/4,0,0,1);
+		this.scene.rotate(Math.PI/2,0,1,0);
+		this.scene.scale(1,1,0.001);
+		//this.scene.translate(-5,0,34);
+		this.glassBackAppearance.apply();
+		this.trapeze.display();
+		this.scene.popMatrix();
+
+		//Right glass
+		this.scene.pushMatrix();
+		this.scene.translate(-0.7,0.8,-1.3);
+		this.scene.scale(1.2,0.8,0.01);
+		this.trapeze.display();
+		this.scene.popMatrix();
+
+		//Left glass
+		this.scene.pushMatrix();
+		this.scene.translate(-0.7,0.8,1.3);
+		this.scene.scale(1.2,0.8,0.01);
+		this.trapeze.display();
+		this.scene.popMatrix();
+
+		//Front glass
+		this.scene.pushMatrix();
+		this.scene.translate(-1.32,0.8,0);
+		this.scene.rotate(-Math.PI/4,0,0,1);
+		this.scene.rotate(-Math.PI/2,0,1,0);
+		this.scene.scale(2.5,2.5,1);
+		//this.scene.translate(-5,0,34);
+		this.glassBackAppearance.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 
 	}
 };
