@@ -8,20 +8,25 @@ class LightingScene extends CGFscene
 	};
 
 	update(currTime) {
+		//Time
       		this.lastTime = this.lastTime || 0;
 		this.deltaTime = currTime - this.lastTime;
 	
+		//Reading keyboard
 		this.checkKeys();
 		
+		//Update Vehicle
 		this.vehicle.move(this.deltaTime);
+		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
+
+		//Update crane
 		this.crane.move(this.deltaTime);
 		this.crane.craneVehicleSet(this.vehicle);
 		this.crane.updateCrane();
 		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2], this.vehicle.velocity);
 		
+		this.lastTime = currTime; //Updating time
 
-		this.lastTime = currTime;
-		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
 	};
 	
 	turnAxis() { //Turn ON/OFF Axis
@@ -29,7 +34,7 @@ class LightingScene extends CGFscene
 	}
 	
 
-	checkKeys() {
+	checkKeys() { //Reading pressed Keys
 		var text = "Keys pressed: ";
                 var keyPressed = false;
 
@@ -175,7 +180,7 @@ class LightingScene extends CGFscene
 		}
 		this.currVehicleAppearance = "appearance1";
 
-		// Scene elements
+		//Altimetry for terrain
 		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
 				[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 0, 0.0, 0.0 ,0],
 				[ 2.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
@@ -186,6 +191,8 @@ class LightingScene extends CGFscene
 				[ 2.0 , 2.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 4.0 ,0],
 				[ 4.0 , 3.0 , 2.0, 2.0, 0.0, 0.0, 3.0, 0.0 ,0]
     				];
+
+		// Scene Elements Initialization
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.vehicle = new MyVehicle(this, this.vehicleAppearanceList[this.currVehicleAppearance]);
 		this.crane = new MyCrane(this, this.vehicle);
@@ -196,7 +203,7 @@ class LightingScene extends CGFscene
 
 		this.crane.craneVehicleSet(this.vehicle);
 
-       	this.setUpdatePeriod(100);
+	       	this.setUpdatePeriod(100); //Defining update scene time
 	}
 
 	initCameras() 
@@ -233,17 +240,11 @@ class LightingScene extends CGFscene
 		this.lights[2].setAmbient(0, 0, 0, 1);
                 this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[2].setSpecular( 1.0, 1.0, 1.0, 1.0 );
-		//this.lights[2].setConstantAttenuation(0); // kc
-		//this.lights[2].setLinearAttenuation(1.0); // kl
-		//this.lights[2].setQuadraticAttenuation(0); // kq
                 this.lights[2].enable();
 
 		this.lights[3].setAmbient(0, 0, 0, 1);
                 this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
                 this.lights[3].setSpecular( 1.0, 1.0, 0, 1.0 );
-		//this.lights[3].setConstantAttenuation(0); // kc
-                //this.lights[3].setLinearAttenuation(0); // kl
-                //this.lights[3].setQuadraticAttenuation(0.2); // kq<Paste>
                 this.lights[3].enable();
 	};
 
