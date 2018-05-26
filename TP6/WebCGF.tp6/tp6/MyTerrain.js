@@ -5,7 +5,7 @@ class MyTerrain extends Plane {
 		this.initBuffers();
 	};
 
-
+	//Overriding initBuffers() from Plane to add support for altimetry
 	initBuffers()
 	{
 		/* example for nrDivs = 3 :
