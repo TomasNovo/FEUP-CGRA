@@ -56,7 +56,6 @@ class MyCrane extends CGFobject
 		this.angle = Math.PI/2;
 
 		this.vehicle = new MyVehicle(this.scene, this.scene.vehicleAppearanceList[this.scene.currVehicleAppearance]);
-		this.arm = new MyArm(this.scene,12,12);
 
 		this.armAngle = 0;
 		this.vehicleIn = 0;
