@@ -17,14 +17,6 @@ class MyVehicle extends CGFobject
 	initBuffers() 
 	{
 		
-		//car appearance
-		//this.carAppearance = new CGFappearance(this.scene);
-		//this.carAppearance.loadTexture("../resources/images/red.png");
-		//this.carAppearance.setAmbient(1.0,1.0,1.0,1);
-		//this.carAppearance.setDiffuse(1.0,1.0,1.0,1);
-		//this.carAppearance.setSpecular(1.0,1.0,1.0,1);
-		//this.carAppearance.setShininess(120);
-
 		//glass appearance
 		this.glassAppearance = new CGFappearance(this.scene);
 		this.glassAppearance.loadTexture("../resources/images/glass.jpg");
@@ -33,6 +25,7 @@ class MyVehicle extends CGFobject
 		this.glassAppearance.setSpecular(1.0,1.0,1.0,1);
 		this.glassAppearance.setShininess(120);
 
+		//Glass for back appearance	
 		this.glassBackAppearance= new CGFappearance(this.scene);
 		this.glassBackAppearance.loadTexture("../resources/images/glass_back.jpg");
 		this.glassBackAppearance.setAmbient(1.0,1.0,1.0,1);
@@ -61,14 +54,6 @@ class MyVehicle extends CGFobject
 		this.wheelRotation = 0; //Wheel Rotation from -2*pi to 2*pi
 		this.rotY = 0; //Car rotation in axi Y
 		this.rotationSpeed = 0;
-		//this.frontRotation = 0;
-
-		/*this.posX = 0;
-		this.posZ = 0;
-		this.rotY = 0;
-		this.wheelRotation = 0;
-		this.velocity = 0;
-		*/	
 		
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
@@ -83,6 +68,8 @@ class MyVehicle extends CGFobject
 		var stabilizeAngle = 3; //Angle to stabilize wheels
 
 		//console.log("Angle: " + this.wheelPosition);
+		
+		//Turning Wheels in accord with the direction specified or stabilizing them
 		if(direction=="l" && this.wheelPosition<maxAngle ) //Left
 			this.wheelPosition += turnAngle;
 		else if(direction=="r" && this.wheelPosition>(-maxAngle))//Right
@@ -92,6 +79,7 @@ class MyVehicle extends CGFobject
 		else if(direction=="s" && this.wheelPosition>=(-maxAngle) && this.wheelPosition<0) //Stabilize from Left
 			this.wheelPosition += stabilizeAngle;
 
+		//Defining rotation speed
 		if(direction == "l" && this.velocity!=0)
 			this.rotationSpeed = Math.PI/50;
 		else if(direction == "r" && this.velocity!=0)
@@ -116,6 +104,7 @@ class MyVehicle extends CGFobject
 
 		this.wheelRotation += rotation;
 
+		//When maxRotation is reached, restart process
 		if(this.wheelRotation>(maxRotation))
 			this.wheelRotation = 0;
 		else if(this.wheelRotation<(-maxRotation))
@@ -125,41 +114,26 @@ class MyVehicle extends CGFobject
 		//console.log("Rotação : "+this.wheelRotation);
 		//console.log("Velocidade : "+this.velocity);
 
-		//if (direction == "f")
-			//this.velocity = 0.2;
-		//else if (direction == "b")
-			//this.velocity = -0.2;
-		//else
-			//this.velocity = 0;
-
 	}
 
-	move(deltaTime) { 
+	move(deltaTime) { //Moving Car 
 		this.moveWheels("",deltaTime); //Move Wheels activated
 		
 		this.rotY += this.rotationSpeed;
 
 		this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
 		this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
-
-		//this.frontRotation += this.velocity/2;
-
 		//console.log("X carro : " + this.position[0]);
 		
 		//console.log("Z carro : " + this.position[2]);
 	}
 
-	changeAppearance(appearance) {
+	changeAppearance(appearance) { //Function to update car appearance
 		this.currAppearance = appearance;	
 	}
 
 	display()
 	{
-		//Moving Car
-		
-		//var coco = this.frontRotation;
-		//console.log(coco);
-		
 		this.scene.translate(this.position[0], this.position[1], this.position[2]);
 
 		this.scene.translate(+1.25,0,0);
@@ -175,7 +149,8 @@ class MyVehicle extends CGFobject
 		//this.scene.translate(0,0,2);
 		this.quad.display();
 		this.scene.popMatrix();
-
+	
+		//Wheel 1
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,2.5);
@@ -184,6 +159,7 @@ class MyVehicle extends CGFobject
 		this.wheel.display(); //roda1
 		this.scene.popMatrix();
 
+		//Wheel 2
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 
@@ -192,6 +168,7 @@ class MyVehicle extends CGFobject
 		this.wheel.display(); //roda 2
 		this.scene.popMatrix();
 			
+		//Wheel 3
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(-2.5,0,-3.5);
@@ -201,6 +178,7 @@ class MyVehicle extends CGFobject
 		this.wheel.display(); // roda 3 
 		this.scene.popMatrix();
 
+		//Wheel 4
 		this.scene.pushMatrix();
 		this.scene.scale(1/2,1/2,1/2);
 		this.scene.translate(2.5,0,-3.5);
@@ -208,6 +186,7 @@ class MyVehicle extends CGFobject
 		this.wheel.display();  // roda4
 		this.scene.popMatrix();
 
+		//parachoques
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(2.5,0.7,1);
@@ -217,6 +196,7 @@ class MyVehicle extends CGFobject
 		this.quad.display();  // para choques
 		this.scene.popMatrix();
 
+		//traseira
 		this.scene.pushMatrix();
 		this.scene.rotate(3*Math.PI/2,0,1,0);
 		this.scene.scale(2.5,0.7,1);
@@ -224,6 +204,7 @@ class MyVehicle extends CGFobject
 		this.quad.display();  // traseira
 		this.scene.popMatrix();
 		
+		//lateral 1
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,0);
 		this.scene.scale(4.5,0.7,1);
@@ -231,6 +212,7 @@ class MyVehicle extends CGFobject
 		this.quad.display();  // lateral 1
 		this.scene.popMatrix();
 
+		//lateral 2
 		this.scene.pushMatrix();
 		this.scene.scale(4.5,0.7,1);
 		this.scene.translate(0,0.5,1.25);
@@ -244,6 +226,7 @@ class MyVehicle extends CGFobject
 		this.quad.display();
 		this.scene.popMatrix();
 		
+		//espelho retrovisor 1
 		this.scene.pushMatrix();
 		this.scene.translate(-0.7,0.9,1.25);
 		this.scene.scale(1/8,1/8,0.5);
@@ -251,6 +234,7 @@ class MyVehicle extends CGFobject
 		this.scene.popMatrix();
 
 
+		//espelho retrovisor 2
 		this.scene.pushMatrix();
 		this.scene.translate(-0.7,0.9,-1.25);
 		this.scene.rotate(Math.PI,0,1,0);
@@ -258,6 +242,7 @@ class MyVehicle extends CGFobject
 		this.cylinder.display(); //espelho2
 		this.scene.popMatrix();
 		
+		//base
 		this.scene.pushMatrix();
 		//this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(1.8,1,2.5);
@@ -267,6 +252,7 @@ class MyVehicle extends CGFobject
 		this.trapeze.display();
 		this.scene.popMatrix();
 
+		//farol 1
 		this.scene.pushMatrix();
 		this.scene.scale(1/3,1/3,1/3);
 		this.scene.rotate(Math.PI/2,0,0,1);
@@ -275,6 +261,7 @@ class MyVehicle extends CGFobject
 		this.sphere.display(); //farol
 		this.scene.popMatrix();
 
+		//farol 2
 		this.scene.pushMatrix();
 		this.scene.scale(1/3,1/3,1/3);
 		this.scene.rotate(Math.PI/2,0,0,1);
@@ -283,6 +270,7 @@ class MyVehicle extends CGFobject
 		this.sphere.display(); //farol
 		this.scene.popMatrix();
 
+		//descarga
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(1/8,1/8,1/3);
