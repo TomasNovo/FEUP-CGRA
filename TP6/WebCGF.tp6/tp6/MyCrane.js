@@ -8,14 +8,54 @@ class MyCrane extends CGFobject
 		this.initBuffers();
 	};
 
+	
+	moveArm(direction,deltaTime) {
+	
+
+		if(direction=="I" )
+			{
+				this.armAngle += Math.PI/100;
+				this.craneControl = 1
+			}
+
+		else if(direction=="K")
+			{
+				this.armAngle -= Math.PI/100;
+				this.craneControl = 1
+			}
+		
+		else if(direction=="L") 
+			{
+				this.angle += Math.PI/100;
+				this.craneControl = 1
+			}
+		
+		else if(direction=="J")
+			{
+				this.angle -= Math.PI/100;
+				this.craneControl = 1
+			}
+		else if(direction == "X")
+			{
+				this.craneControl = 2;
+			}
+
+	}
+
+	move(deltaTime) { 
+		this.moveArm("",deltaTime); 
+
+		}
+
+
+	
 	initBuffers() 
 	{
 	    this.cylinder = new MyCylinder(this.scene,12,12);
 	    this.circle = new MyCircle(this.scene,12,12);
-		this.angle = 0;
+		this.angle = Math.PI/2;
 
-		this.vehicle = new MyVehicle(this.scene);
-
+		this.vehicle = new MyVehicle(this.scene, this.scene.vehicleAppearanceList[this.scene.currVehicleAppearance]);
 		this.arm = new MyArm(this.scene,12,12);
 
 		this.armAngle = 0;
@@ -23,26 +63,41 @@ class MyCrane extends CGFobject
 
 		this.cranetimer = 0;
 		
+		this.vehicleInCrane = 0;
+
+		this.vehicleDisplay = 0;
+
+		this.vehicleDrop = 0;
+
+		this.gravity = 0;
+
+		this.craneControl = 0;
+
+		this.high = 0;
+
 	};
 
 
-	//craneVehicleUpdate(car)
-	//{	
-		//this.vehicle = car;	
-	//}
+	craneVehicleSet(car)
+	{	
+		this.sceneVehicle = car;	
+	}
 
 
-	checkCarPosition(posX, posZ, speed)
+	checkCarPosition(posX, posZ, velocity)
 	{
 
-		if( (posZ > 8 && posZ < 12) && (posX > -12 && posX < -8) && speed == 0 ) {
+		if((posZ > -1 && posZ < 1.5) && (posX > -22 && posX < -19)  && (velocity == 0) )
+		{
 			this.vehicleIn = 1;
-			//console.log("ENTROU NO TARGET!");
+			console.log("ENTROU NO TARGET!");
 		}
 		else
 		{
-			this.cranetimer = 0;
 			this.vehicleIn = 0;
+			this.cranetimer = 0;
+			this.craneControl = 0;
+			this.vehicle.position[1] = 0;
 		}
 		//console.log("X : "+posX+"\nZ : "+posZ);
 	}
@@ -51,45 +106,57 @@ class MyCrane extends CGFobject
 
 	updateCrane()
 	{
-
-/*		if(this.vehicle.position[0] >= 5 && this.vehicle.position[0] <= 7.5 )
-			if (this.vehicle.position[2] >= 13 && this.vehicle.position[0] <= 19)
-		  		this.crane.vehicleIn = 1;
-*/
-
-
 		//rodar para o target
-		
-		
-		if(this.vehicleIn ==  1 && this.car.velocity==0)
+		if(this.craneControl == 2)
 		{
-			this.car.isCarOnCrane = true;
-			this.cranetimer++;
+			if(this.angle > Math.PI/2)
+			  this.angle -= Math.PI/100;
 
-			if(this.cranetimer < 50) //roda posiçao inical
+
+			if(this.angle < Math.PI/2)
+			  this.angle += Math.PI/100;
+
+			    
+			if(this.armAngle > 0)
+			  this.armAngle -= Math.PI/100;
+
+
+			if(this.armAngle < 0)
+			  this.armAngle += Math.PI/100;
+		
+		
+		}
+		
+		if(this.vehicleIn ==  1)
+		{
+			
+			this.cranetimer++;
+		//	this.angle = 0;
+			if(this.cranetimer < 100) //roda posiçao inical
 			{
 
-				if(this.angle > -Math.PI/2)
+				if(this.angle > -Math.PI)
 			    {
 			    	this.angle -= Math.PI/100;
 			    }
 
-				//console.log(this.cranetimer);
+				console.log(this.cranetimer);
 			
 			};
 			
-			if(this.cranetimer >= 70 && this.cranetimer < 100) // baixa o braço
+			if(this.cranetimer >= 100 && this.cranetimer < 130) // baixa o braço
 			{
 			
 				if(this.armAngle > -Math.PI/8) // baixa
 			 	{   
 			    	this.armAngle -= +Math.PI/100;
+			    	this.vehicleDisplay = 1;
 			 	}
 			}
 
 		
 			
-			if(this.cranetimer >= 115 && this.cranetimer < 140) // levanta o braço
+			if(this.cranetimer >= 115 && this.cranetimer < 150) // levanta o braço
 			{
 				 
 			  if(this.armAngle < 0)
@@ -99,25 +166,24 @@ class MyCrane extends CGFobject
 				
 			}
 
-			if(this.cranetimer > 141 && this.cranetimer < 250)
+			if(this.cranetimer > 150 && this.cranetimer < 250) // roda pi
 			{
-				console.log("!!!! "+this.cranetimer); 
 				if(this.angle < Math.PI/2)
 					this.angle +=	Math.PI/100;
-				if(this.cranertimer==249) {
-					this.car.isCarOnCrane = false;
-					this.car.position[0] = 20;
-				}
 
+				
+				if(this.cranetimer > 247 && this.cranetimer < 250)
+					this.vehicle.position[1] -= 0.2;
+					
 			}
-
-
-			if(this.cranetimer > 270)
-			{
-				if(this.angle > 0)
-					this.angle -= Math.PI/100;
-			}
-
+			
+			if(this.cranetimer > 250) 
+{
+			this.vehicleDisplay = 0;
+			this.sceneVehicle.position = [0,0,0];
+			this.sceneVehicle.rotY = -this.vehicle.rotY;
+			this.craneControl = 0;
+} 
 		}
 
 
@@ -181,17 +247,27 @@ class MyCrane extends CGFobject
 
 	display()
 	{
-
-        this.scene.rotate(this.angle,0,1,0);
-	
-	//if(this.car.isCarOnCrane) {
-		this.car.scene.pushMatrix();
-		this.car.scene.translate(0,0,7);
-		this.car.display();
-		this.car.scene.popMatrix();
-	//}
+		//this.scene.translate(0,this.high,0)
+        this.scene.rotate(this.angle,0,1,0);	
+	    
+	    this.scene.pushMatrix();
+	    if(this.vehicleDisplay == 1)
+	    {
+	    this.scene.translate(4 + 5*Math.cos(this.armAngle),6.75 + 5*Math.sin(this.armAngle)- 5.8,0);
+	    
+	    this.vehicle.display();
+	    }
+	    else
+	    {
+	    	this.scene.translate(5.5,0,-1.5);
+			this.scene.rotate(Math.PI/2,0,1,0);
+	    }
+	    this.scene.popMatrix();
+		
 
         this.scene.pushMatrix();
+        this.scene.translate(0,-9,0);
+        this.scene.scale(1,10,1);
         this.scene.rotate(-Math.PI/2,1,0,0);
         this.cylinder.display();
         this.scene.popMatrix();
@@ -259,6 +335,9 @@ class MyCrane extends CGFobject
         this.circle.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
+
+    	
+        //iman (4,6.75,-0.5) + (5-0.5, 0 , 0) = (8.75,6.75,-0.5)
 	};
 
 };

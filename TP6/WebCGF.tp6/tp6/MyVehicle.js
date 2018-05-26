@@ -55,8 +55,6 @@ class MyVehicle extends CGFobject
 		this.rotationSpeed = 0;
 		//this.frontRotation = 0;
 
-		this.isCarOnCrane = false;
-
 		/*this.posX = 0;
 		this.posZ = 0;
 		this.rotY = 0;
@@ -129,16 +127,18 @@ class MyVehicle extends CGFobject
 	}
 
 	move(deltaTime) { 
-		if(!this.isCarOnCrane) {
-			this.moveWheels("",deltaTime); //Move Wheels activated
+		this.moveWheels("",deltaTime); //Move Wheels activated
 		
-			this.rotY += this.rotationSpeed;
+		this.rotY += this.rotationSpeed;
 
-			this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
-			this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
+		this.position[0] += (deltaTime/1000)*this.velocity*Math.sin(this.rotY);
+		this.position[2] += (deltaTime/1000)*this.velocity*Math.cos(this.rotY);
 
-			//this.frontRotation += this.velocity/2;
-		}
+		//this.frontRotation += this.velocity/2;
+
+		//console.log("X carro : " + this.position[0]);
+		
+		//console.log("Z carro : " + this.position[2]);
 	}
 
 	changeAppearance(appearance) {
@@ -236,6 +236,19 @@ class MyVehicle extends CGFobject
 		this.quad.display();
 		this.scene.popMatrix();
 		
+		this.scene.pushMatrix();
+		this.scene.translate(-0.7,0.9,1.25);
+		this.scene.scale(1/8,1/8,0.5);
+		this.cylinder.display(); //espelho1
+		this.scene.popMatrix();
+
+
+		this.scene.pushMatrix();
+		this.scene.translate(-0.7,0.9,-1.25);
+		this.scene.rotate(Math.PI,0,1,0);
+		this.scene.scale(1/8,1/8,0.5);
+		this.cylinder.display(); //espelho2
+		this.scene.popMatrix();
 		
 		this.scene.pushMatrix();
 		//this.scene.rotate(Math.PI/2,0,1,0);

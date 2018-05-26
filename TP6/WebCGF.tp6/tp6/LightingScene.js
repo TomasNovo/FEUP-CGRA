@@ -10,10 +10,15 @@ class LightingScene extends CGFscene
 	update(currTime) {
       		this.lastTime = this.lastTime || 0;
 		this.deltaTime = currTime - this.lastTime;
+	
 		this.checkKeys();
+		
 		this.vehicle.move(this.deltaTime);
+		this.crane.move(this.deltaTime);
 		this.crane.updateCrane();
 		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2], this.vehicle.velocity);
+		
+
 		this.lastTime = currTime;
 		this.vehicle.changeAppearance(this.vehicleAppearanceList[this.currVehicleAppearance]);
 	};
@@ -21,11 +26,13 @@ class LightingScene extends CGFscene
 	turnAxis() { //Turn ON/OFF Axis
 		this.axisVisibility = !this.axisVisibility;
 	}
+	
 
 	checkKeys() {
 		var text = "Keys pressed: ";
                 var keyPressed = false;
 
+               
                 if(this.gui.isKeyPressed("KeyW")) {
                         text +=  " W ";
                         keyPressed = true;
@@ -51,6 +58,37 @@ class LightingScene extends CGFscene
                 }
                 else
                         this.vehicle.turnWheels("");
+
+
+
+
+               if(this.gui.isKeyPressed("KeyI")) {
+                        text +=  " I ";
+                        keyPressed = true;
+                        this.crane.moveArm("I",this.deltaTime);
+                }
+                else if(this.gui.isKeyPressed("KeyK")) {
+                	text += " K ";
+                	keyPressed = true;
+                	this.crane.moveArm("K", this.deltaTime);
+                }
+                else if(this.gui.isKeyPressed("KeyJ")) {
+                        text +=  " J ";
+                        keyPressed = true;
+                        this.crane.moveArm("J",this.deltaTime);
+                }
+                else if(this.gui.isKeyPressed("KeyL")) {
+                	text += " L ";
+                	keyPressed = true;
+                	this.crane.moveArm("L", this.deltaTime);
+                }
+                else if(this.gui.isKeyPressed("KeyX"))
+                {
+                	text += " X ";
+                	keyPressed = true;
+                	this.crane.moveArm("X", this.deltaTime);
+                }
+
 
                 if(keyPressed)
                         console.log(text);
@@ -155,7 +193,9 @@ class LightingScene extends CGFscene
 		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
 		this.target = new MyQuad(this, 0, 1, 0, 1);
 
-       		this.setUpdatePeriod(1000/60);
+		this.crane.craneVehicleSet(this.vehicle);
+
+       	this.setUpdatePeriod(1000/60);
 	}
 
 	initCameras() 
@@ -273,19 +313,19 @@ class LightingScene extends CGFscene
 			this.popMatrix();
 
 			//Vehicle
-		if(!this.vehicle.isCarOnCrane) {
 			this.pushMatrix();
 			this.vehicleAppearanceList[this.currVehicleAppearance].apply();
-			this.translate(14,0.5,5);
+			this.translate(5,0.5,-1.7);
+			this.rotate(Math.PI/2,0,1,0);
+			if(this.crane.vehicleDisplay == 0)
 			this.vehicle.display();
 			this.popMatrix();
-		}
 
 			//Crane
-                        this.pushMatrix();
-                      	this.translate(5,1.5,7);
-                     	this.crane.display();
-                        this.popMatrix();
+            this.pushMatrix();
+           	this.translate(5,1.5,7);
+            this.crane.display();
+            this.popMatrix();
 			
 			//first Target x: [5 , 7.5]  y: [0,0]  z: [13.5,18.5]
 			this.pushMatrix();
