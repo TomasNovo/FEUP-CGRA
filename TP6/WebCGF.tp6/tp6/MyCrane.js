@@ -94,7 +94,7 @@ class MyCrane extends CGFobject
 	checkCarPosition(posX, posZ, velocity)
 	{
 
-		if((posZ > -1 && posZ < 1.5) && (posX > -22 && posX < -16)  && (velocity == 0) )
+		if((posZ > -1 && posZ < 1.9) && (posX > -22 && posX < -16)  && (velocity == 0) )
 		{
 			this.vehicleIn = 1;
 			console.log("ENTROU NO TARGET!");
@@ -110,8 +110,7 @@ class MyCrane extends CGFobject
 	}
 
 
-
-	updateCrane()
+updateCrane()
 	{
 		//rodar para o target
 		if(this.craneControl == 2)
@@ -138,7 +137,7 @@ class MyCrane extends CGFobject
 		{
 			
 			this.cranetimer++;
-		//	this.angle = 0;
+		
 			if(this.cranetimer < 100) //roda posiçao inical
 			{
 
@@ -147,7 +146,6 @@ class MyCrane extends CGFobject
 			    	this.angle -= Math.PI/100;
 			    }
 
-				console.log(this.cranetimer);
 			
 			};
 			
@@ -157,7 +155,6 @@ class MyCrane extends CGFobject
 				if(this.armAngle > -Math.PI/8) // baixa
 			 	{   
 			    	this.armAngle -= +Math.PI/100;
-			    	this.vehicleDisplay = 1;
 			 	}
 			}
 
@@ -165,6 +162,7 @@ class MyCrane extends CGFobject
 			
 			if(this.cranetimer >= 115 && this.cranetimer < 150) // levanta o braço
 			{
+				this.vehicleDisplay = 1;
 				 
 			  if(this.armAngle < 0)
 			  {
@@ -188,7 +186,9 @@ class MyCrane extends CGFobject
 {
 			this.vehicleDisplay = 0;
 			this.sceneVehicle.position = [0,0,0];
-			this.sceneVehicle.rotY = -this.vehicle.rotY;
+			//this.sceneVehicle.rotY = -this.vehicle.rotY;
+			this.sceneVehicle.rotY = this.sceneVehicle.rotY-Math.PI;
+
 			this.craneControl = 0;
 } 
 		}
@@ -260,7 +260,9 @@ class MyCrane extends CGFobject
 	    this.scene.pushMatrix();
 	    if(this.vehicleDisplay == 1)
 	    {
+
 	    this.scene.translate(4 + 5*Math.cos(this.armAngle),6.75 + 5*Math.sin(this.armAngle)- 5.8,0);
+		this.sceneVehicle.scene.rotate(this.sceneVehicle.rotY-Math.PI,0,1,0);
 	this.vehicle.currAppearance = this.sceneVehicle.currAppearance;	
 		this.vehicle.currAppearance.apply();
 
