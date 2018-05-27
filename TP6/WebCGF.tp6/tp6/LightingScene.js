@@ -25,6 +25,9 @@ class LightingScene extends CGFscene
 		this.crane.updateCrane();
 		this.crane.checkCarPosition(this.vehicle.position[0], this.vehicle.position[2], this.vehicle.velocity);
 		
+		//Update sky 
+		this.sky.updateSky(this.deltaTime);
+
 		this.lastTime = currTime; //Updating time
 
 	};
@@ -126,11 +129,21 @@ class LightingScene extends CGFscene
 		this.light3 = true;
 		this.light4 = true;
 		this.axisVisibility = false; //Modified by function updateAxis
-
+		this.currTerrainAppearance = "desert";
 
 		//Appearances
+		
+		this.skyAppearance = new CGFappearance(this);
+		this.skyAppearance.loadTexture("../resources/images/sky.png");
+		this.skyAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.skyAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.skyAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.skyAppearance.setShininess(120);
+
+
+
 		this.basicAppearance = new CGFappearance(this);
-		this.basicAppearance.loadTexture("../resources/images/feup.png");
+		this.basicAppearance.loadTexture("../resources/images/feup.jpg");
 		this.basicAppearance.setAmbient(1.0,1.0,1.0,1);
 		this.basicAppearance.setDiffuse(1.0,1.0,1.0,1);
 		this.basicAppearance.setSpecular(1.0,1.0,1.0,1);
@@ -200,6 +213,8 @@ class LightingScene extends CGFscene
 		this.sphere = new Sphere(this, 20, 20);
 		this.trapeze = new MyTrapeze(this,0,2,0.5,1.5,1,1);
 		this.target = new MyQuad(this, 0, 1, 0, 1);
+
+		this.sky = new InvSphere(this,20,20);
 
 		this.crane.craneVehicleSet(this.vehicle);
 
@@ -308,7 +323,21 @@ class LightingScene extends CGFscene
 			//Terrain
 			this.pushMatrix();
 			this.terrain.terrainAppearance.apply();
-			//this.vehicleAppearanceList[this.currVehicleAppearance].apply();
+			//Choosing Appearance
+			switch(this.currTerrainAppearance) {
+				case "desert":
+					this.terrain.terrainAppearance.apply();
+					break;
+				case "grass":
+					this.terrain.terrainAppearance2.apply();
+					break;
+				case "money":
+					this.terrain.terrainAppearance3.apply();
+					break;
+				default:
+					this.terrain.terrainAppearance.apply();
+					break;
+			}
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.scale(50,50,1);
 			this.terrain.display();
@@ -326,7 +355,6 @@ class LightingScene extends CGFscene
 			//Crane
             		this.pushMatrix();
            		this.translate(5,1.5,7);
-			//this.vehicleAppearanceList["appearance1"].apply();
             		this.crane.display();
             		this.popMatrix();
 			
@@ -380,6 +408,16 @@ class LightingScene extends CGFscene
 			this.popMatrix();
 			
         
+        	//Sky
+        	//Sphere
+			this.pushMatrix();
+			this.translate(0,-250,0);
+			this.scale(300,300,300);
+			this.rotate(this.sky.angle,0,1,0);
+			this.skyAppearance.apply();
+			this.sky.display();
+			this.popMatrix();
+			
 
 		// ---- END Scene drawing section
 

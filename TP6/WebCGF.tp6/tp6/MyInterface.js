@@ -54,6 +54,8 @@ class MyInterface extends CGFinterface {
 		//Vehicle Appearance drop-down menu
 		this.gui.add(this.scene, 'currVehicleAppearance', ['appearance1', 'appearance2', 'appearance3' ]);
 
+		//Terrain Appearance drop-down menu
+		this.gui.add(this.scene, 'currTerrainAppearance', ["desert", "grass", "money"]);
 		
 		this.initKeys(); 
 

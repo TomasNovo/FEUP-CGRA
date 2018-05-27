@@ -8,6 +8,11 @@ class InvSphere extends CGFobject {
 		this.initBuffers();
 	}
 
+	updateSky(deltaTime)
+	{
+		this.angle += Math.PI/200;
+	}
+
 	initBuffers() {
 
 		this.vertices = [];
@@ -102,4 +107,5 @@ class InvSphere extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
+
 }

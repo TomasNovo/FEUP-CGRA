@@ -22,13 +22,30 @@ class MyTerrain extends Plane {
 		12  13  |  14  15    
 		*/
 		
-		//Terrain Appearance
+		//Terrain Appearance 1
         	this.terrainAppearance = new CGFappearance(this.scene);
 		this.terrainAppearance.loadTexture("../resources/images/terrain.jpg");
 		this.terrainAppearance.setAmbient(1.0,1.0,1.0,1);
 		this.terrainAppearance.setDiffuse(1.0,1.0,1.0,1);
 		this.terrainAppearance.setSpecular(1.0,1.0,1.0,1);
 		this.terrainAppearance.setShininess(120);
+		
+		//Terrain Appearance 2
+        	this.terrainAppearance2 = new CGFappearance(this.scene);
+		this.terrainAppearance2.loadTexture("../resources/images/grass.jpg");
+		this.terrainAppearance2.setAmbient(1.0,1.0,1.0,1);
+		this.terrainAppearance2.setDiffuse(1.0,1.0,1.0,1);
+		this.terrainAppearance2.setSpecular(1.0,1.0,1.0,1);
+		this.terrainAppearance2.setShininess(120);
+		
+		//Terrain Appearance 3
+        	this.terrainAppearance3 = new CGFappearance(this.scene);
+		this.terrainAppearance3.loadTexture("../resources/images/money.jpg");
+		this.terrainAppearance3.setAmbient(1.0,1.0,1.0,1);
+		this.terrainAppearance3.setDiffuse(1.0,1.0,1.0,1);
+		this.terrainAppearance3.setSpecular(1.0,1.0,1.0,1);
+		this.terrainAppearance3.setShininess(120);
+
 
 		// Generate vertices and normals 
 		this.vertices = [];

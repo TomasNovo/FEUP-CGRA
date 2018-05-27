@@ -16,7 +16,15 @@ class MyVehicle extends CGFobject
 
 	initBuffers() 
 	{
-		
+		//plate
+		this.plateAppearance = new CGFappearance(this.scene);
+		this.plateAppearance.loadTexture("../resources/images/matriculaa.png");
+		this.plateAppearance.setAmbient(1.0,1.0,1.0,1);
+		this.plateAppearance.setDiffuse(1.0,1.0,1.0,1);
+		this.plateAppearance.setSpecular(1.0,1.0,1.0,1);
+		this.plateAppearance.setShininess(120);
+
+
 		//glass appearance
 		this.glassAppearance = new CGFappearance(this.scene);
 		this.glassAppearance.loadTexture("../resources/images/glass.jpg");
@@ -186,22 +194,32 @@ class MyVehicle extends CGFobject
 		this.wheel.display();  // roda4
 		this.scene.popMatrix();
 
-		//parachoques
+		//traseira
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(2.5,0.7,1);
 		this.scene.translate(0,0.5,2.25);
-		//this.carAppearance.apply();
 		this.currAppearance.apply();
-		this.quad.display();  // para choques
+		this.quad.display();  // traseira
 		this.scene.popMatrix();
 
-		//traseira
+		//matricula 
+		this.scene.pushMatrix();
+		this.scene.translate(2.27,0.3,0.5);
+		this.scene.scale(1/2,1/2,1);
+		this.scene.rotate(Math.PI/2,0,1,0);
+		this.plateAppearance.apply();
+		this.quad.display();  // traseira
+		this.scene.popMatrix();
+
+
+		//para-choques
 		this.scene.pushMatrix();
 		this.scene.rotate(3*Math.PI/2,0,1,0);
 		this.scene.scale(2.5,0.7,1);
 		this.scene.translate(0,0.5,2.25);
-		this.quad.display();  // traseira
+		this.currAppearance.apply();
+		this.quad.display();  // para-choques
 		this.scene.popMatrix();
 		
 		//lateral 1
@@ -280,10 +298,10 @@ class MyVehicle extends CGFobject
 
 		//back glass
 		this.scene.pushMatrix();
-		this.scene.translate(2.17,0.9,1);
+		this.scene.translate(2.17,0.9,1.2);
 		this.scene.rotate(Math.PI/4,0,0,1);
 		this.scene.rotate(Math.PI/2,0,1,0);
-		this.scene.scale(1,1,0.001);
+		this.scene.scale(1.2,1,0);
 		//this.scene.translate(-5,0,34);
 		this.glassBackAppearance.apply();
 		this.trapeze.display();

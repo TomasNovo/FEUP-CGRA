@@ -9,7 +9,7 @@ class MyCrane extends CGFobject
 	};
 
 	
-	moveArm(direction,deltaTime) {
+	moveArm(direction,deltaTime) { // function that allows the user to use the crane
 	
 
 		if(direction=="I" )
@@ -35,14 +35,14 @@ class MyCrane extends CGFobject
 				this.angle -= Math.PI/100;
 				this.craneControl = 1
 			}
-		else if(direction == "X")
+		else if(direction == "X")  // after done controlling, the user shall press X key
 			{
 				this.craneControl = 2;
 			}
 
 	}
 
-	move(deltaTime) { 
+	move(deltaTime) {  // moves the arm according the control of the user
 		this.moveArm("",deltaTime); 
 
 		}
@@ -57,23 +57,22 @@ class MyCrane extends CGFobject
 
 		this.vehicle = new MyVehicle(this.scene, this.scene.vehicleAppearanceList[this.scene.currVehicleAppearance]);
 
-		this.armAngle = 0;
-		this.vehicleIn = 0;
+		this.armAngle = 0; // angle of the arm
+		this.vehicleIn = 0; // boolean to control the position of the vehicle in target
 
-		this.cranetimer = 0;
+		this.cranetimer = 0; 
 		
 		this.vehicleInCrane = 0;
 
-		this.vehicleDisplay = 0;
+		this.vehicleDisplay = 0; //boolean to control the display of the vehicle
 
 		this.vehicleDrop = 0;
-
-		this.gravity = 0;
 
 		this.craneControl = 0;
 
 		this.high = 0;
 
+		//Crane appearence
 		this.craneAppearance = new CGFappearance(this.scene);
 		this.craneAppearance.loadTexture("../resources/images/crane.jpg");
 		this.craneAppearance.setAmbient(1.0,1.0,1.0,1);
@@ -85,16 +84,16 @@ class MyCrane extends CGFobject
 	};
 
 
-	craneVehicleSet(car)
+	craneVehicleSet(car) 
 	{	
 		this.sceneVehicle = car;	
 	}
 
 
-	checkCarPosition(posX, posZ, velocity)
+	checkCarPosition(posX, posZ, velocity) // checks scene car position
 	{
 
-		if((posZ > -1 && posZ < 1.9) && (posX > -22 && posX < -16)  && (velocity == 0) )
+		if((posZ > -1 && posZ < 1.9) && (posX > -22 && posX < -16)  && (velocity == 0) ) // target limits
 		{
 			this.vehicleIn = 1;
 			console.log("ENTROU NO TARGET!");
@@ -106,13 +105,12 @@ class MyCrane extends CGFobject
 			this.craneControl = 0;
 			this.vehicle.position[1] = 0;
 		}
-		//console.log("X : "+posX+"\nZ : "+posZ);
 	}
 
 
 updateCrane()
 	{
-		//rodar para o target
+		//after user control
 		if(this.craneControl == 2)
 		{
 			if(this.angle > Math.PI/2)
@@ -133,12 +131,12 @@ updateCrane()
 		
 		}
 		
-		if(this.vehicleIn ==  1)
+		if(this.vehicleIn ==  1) // vehicle is in target
 		{
 			
 			this.cranetimer++;
 		
-			if(this.cranetimer < 100) //roda posiçao inical
+			if(this.cranetimer < 100) //turns to target
 			{
 
 				if(this.angle > -Math.PI)
@@ -149,7 +147,7 @@ updateCrane()
 			
 			};
 			
-			if(this.cranetimer >= 100 && this.cranetimer < 130) // baixa o braço
+			if(this.cranetimer >= 100 && this.cranetimer < 130) // arm goes down
 			{
 			
 				if(this.armAngle > -Math.PI/8) // baixa
@@ -160,7 +158,7 @@ updateCrane()
 
 		
 			
-			if(this.cranetimer >= 115 && this.cranetimer < 150) // levanta o braço
+			if(this.cranetimer >= 115 && this.cranetimer < 150) // arm goes up 
 			{
 				this.vehicleDisplay = 1;
 				 
@@ -171,7 +169,7 @@ updateCrane()
 				
 			}
 
-			if(this.cranetimer > 150 && this.cranetimer < 250) // roda pi
+			if(this.cranetimer > 150 && this.cranetimer < 250) // turns PI
 			{
 				if(this.angle < Math.PI/2)
 					this.angle +=	Math.PI/100;
@@ -182,80 +180,23 @@ updateCrane()
 					
 			}
 			
-			if(this.cranetimer > 250) 
-{
+			if(this.cranetimer > 250) //drops vehicle
+			{
 			this.vehicleDisplay = 0;
 			this.sceneVehicle.position = [0,0,1];
 			//this.sceneVehicle.rotY = -this.vehicle.rotY;
 			this.sceneVehicle.rotY = this.sceneVehicle.rotY-Math.PI;
 
 			this.craneControl = 0;
-} 
+			} 
 		}
 
 
-
-
-		/*
-		
-		//baixar o braço
-
-		this.armDown = 0;
-		
-		if(this.firstRotOver == 1)
-		{
-			if(this.armAngle > -Math.PI/8) // baixa
-			    {
-			    	this.armAngle -= +Math.PI/100;
-			    	this.armDown = 0;
-			    }
-			    else
-			    {
-			    	this.firstRotOver = 0;
-			    	this.armAngle = -Math.PI/8;
-			    	this.armDown = 1;
-			    }
-
-
-		}
-
-		
-		// PASSAR DISPLAY
-
-		//LEVANTAR
-
-		
-		if(this.armDown == 1)
-		{
-			
-
-			if(this.armAngle < 0)
-			  {
-			  	this.armAngle += Math.PI/100;
-			  	this.armUp = 0;
-			  }
-			  else
-			  {
-			  	this.armUp = 1;
-			  }
-		
-		}
-
-
-
-		// ROTACAO PARA O OUTRO LADO
-		//
-
-		
-
-*/
-
-	}
+}
 
 	display()
 	{
-		//this.scene.translate(0,this.high,0)
-        this.scene.rotate(this.angle,0,1,0);	
+		this.scene.rotate(this.angle,0,1,0);	
 	    
 	    this.scene.pushMatrix();
 	    if(this.vehicleDisplay == 1)
@@ -263,7 +204,7 @@ updateCrane()
 
 	    this.scene.translate(4 + 5*Math.cos(this.armAngle),6.75 + 5*Math.sin(this.armAngle)- 5.8,0);
 		this.sceneVehicle.scene.rotate(this.sceneVehicle.rotY-Math.PI,0,1,0);
-	this.vehicle.currAppearance = this.sceneVehicle.currAppearance;	
+		this.vehicle.currAppearance = this.sceneVehicle.currAppearance;	
 		this.vehicle.currAppearance.apply();
 
 	    this.vehicle.display();
@@ -297,9 +238,9 @@ updateCrane()
         this.scene.popMatrix();
 
 
- 		//suporte pendulo
+ 		//support
  		this.scene.pushMatrix();
-			this.scene.translate(4,6.75,-0.5);               // PONTO 4,6.75,-0.5
+			this.scene.translate(4,6.75,-0.5);               // Point 4,6.75,-0.5
 			this.scene.rotate(this.armAngle,0,0,1);
 			this.scene.pushMatrix();
         		this.scene.pushMatrix();		
@@ -324,9 +265,7 @@ updateCrane()
 	    	this.cylinder.display();
 	    this.scene.popMatrix();
 
-		//PENDULO
-		
-
+		//PENDULUM
 		this.scene.pushMatrix();
 		this.scene.translate(4 + 5*Math.cos(this.armAngle),6.75 + 5*Math.sin(this.armAngle),0)
 		this.scene.pushMatrix();
@@ -348,7 +287,7 @@ updateCrane()
         this.scene.popMatrix();
 
     	
-        //iman (4,6.75,-0.5) + (5-0.5, 0 , 0) = (8.75,6.75,-0.5)
+        //magnet point (4,6.75,-0.5) + (5-0.5, 0 , 0) = (8.75,6.75,-0.5)
 	};
 
 };
