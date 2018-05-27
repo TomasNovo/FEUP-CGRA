@@ -75,7 +75,7 @@ class MyCrane extends CGFobject
 		this.high = 0;
 
 		this.craneAppearance = new CGFappearance(this.scene);
-		this.craneAppearance.loadTexture("../resources/images/red.png");
+		this.craneAppearance.loadTexture("../resources/images/crane.jpg");
 		this.craneAppearance.setAmbient(1.0,1.0,1.0,1);
 		this.craneAppearance.setDiffuse(1.0,1.0,1.0,1);
 		this.craneAppearance.setSpecular(1.0,1.0,1.0,1);
@@ -185,7 +185,7 @@ updateCrane()
 			if(this.cranetimer > 250) 
 {
 			this.vehicleDisplay = 0;
-			this.sceneVehicle.position = [0,0,0];
+			this.sceneVehicle.position = [0,0,1];
 			//this.sceneVehicle.rotY = -this.vehicle.rotY;
 			this.sceneVehicle.rotY = this.sceneVehicle.rotY-Math.PI;
 
