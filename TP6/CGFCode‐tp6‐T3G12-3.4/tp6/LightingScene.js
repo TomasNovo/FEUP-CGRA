@@ -13,7 +13,7 @@ class LightingScene extends CGFscene
 		this.deltaTime = currTime - this.lastTime;
 	
 		//Reading keyboard
-		this.checkKeys();
+		//this.checkKeys();
 		
 		//Update Vehicle
 		this.vehicle.move(this.deltaTime);
@@ -181,15 +181,15 @@ class LightingScene extends CGFscene
 		this.currVehicleAppearance = "appearance1";
 
 		//Altimetry for terrain
-		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ,0],
-				[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 0, 0.0, 0.0 ,0],
-				[ 2.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
+		this.altimetry= [[ 0 , 0 , 0, 0, 0, 0, 0, 0 ,0],
+				[ 0 , 0 , 0, 0, 0, 0, 0.0, 0.0 ,0],
+				[ 0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
 				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0],
 				[ 0.0 , 0.0 , 0.0, 0.0, 0, 0, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 0.0, 0.0, 1.5, 1.5, 0.0, 0.0 ,0],
-				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 4.0 ,0],
-				[ 2.0 , 2.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 4.0 ,0],
-				[ 4.0 , 3.0 , 2.0, 2.0, 0.0, 0.0, 3.0, 0.0 ,0]
+				[ 0.0 , 0.0 , 0.0, 0.0, 0, 0, 0.0, 0.0 ,0],
+				[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0 ,0],
+				[ 0 , 0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0 ,0],
+				[ 0 , 0 , 0, 0, 0.0, 0.0, 0, 0.0 ,0]
     				];
 
 		// Scene Elements Initialization
@@ -323,61 +323,61 @@ class LightingScene extends CGFscene
 			this.vehicle.display();
 			this.popMatrix();
 
-			//Crane
-            		this.pushMatrix();
-           		this.translate(5,1.5,7);
-			//this.vehicleAppearanceList["appearance1"].apply();
-            		this.crane.display();
-            		this.popMatrix();
+			////Crane
+                            //this.pushMatrix();
+                           //this.translate(5,1.5,7);
+			////this.vehicleAppearanceList["appearance1"].apply();
+                            //this.crane.display();
+                            //this.popMatrix();
 			
-			//first Target x: [5 , 7.5]  y: [0,0]  z: [13.5,18.5]
-			this.pushMatrix();
-			this.translate(5,0.01,15.5);
-			this.rotate(-Math.PI/2,0,1,0);
-			this.rotate(Math.PI,1,0,0);
-			this.rotate(Math.PI/2,1,0,0);
-			this.scale(5,6,1);            //
-			this.target1Appearance.apply();
-			this.target.display();
-			this.popMatrix();
+			////first Target x: [5 , 7.5]  y: [0,0]  z: [13.5,18.5]
+			//this.pushMatrix();
+			//this.translate(5,0.01,15.5);
+			//this.rotate(-Math.PI/2,0,1,0);
+			//this.rotate(Math.PI,1,0,0);
+			//this.rotate(Math.PI/2,1,0,0);
+			//this.scale(5,6,1);            //
+			//this.target1Appearance.apply();
+			//this.target.display();
+			//this.popMatrix();
 
-			//second Target
-			this.pushMatrix();
-			this.translate(5,0.1,-2);
-			this.rotate(-Math.PI/2,0,1,0);
-			this.rotate(Math.PI,1,0,0);
-			this.rotate(Math.PI/2,1,0,0);
-			this.scale(5,6,1);            //
-			this.target2Appearance.apply();
-			this.target.display();
-			this.popMatrix();
+			////second Target
+			//this.pushMatrix();
+			//this.translate(5,0.1,-2);
+			//this.rotate(-Math.PI/2,0,1,0);
+			//this.rotate(Math.PI,1,0,0);
+			//this.rotate(Math.PI/2,1,0,0);
+			//this.scale(5,6,1);            //
+			//this.target2Appearance.apply();
+			//this.target.display();
+			//this.popMatrix();
 
-			//Basic Forms
-			//Cylinder
-			this.pushMatrix();
-			this.rotate(Math.PI/2,1,0,0);
-			this.translate(20,0,-5);
-			this.rotate(Math.PI,0,0,1);
-			this.scale(1,1,5);
-			this.basicAppearance.apply();
-			this.cylinder.display();
-			this.popMatrix();
+			////Basic Forms
+			////Cylinder
+			//this.pushMatrix();
+			//this.rotate(Math.PI/2,1,0,0);
+			//this.translate(20,0,-5);
+			//this.rotate(Math.PI,0,0,1);
+			//this.scale(1,1,5);
+			//this.basicAppearance.apply();
+			//this.cylinder.display();
+			//this.popMatrix();
 
-			//Trapeze
-			this.pushMatrix();
-			this.translate(20,0,-5);
-			this.scale(2,2,2);
-			this.basicAppearance.apply();
-			this.trapeze.display();
-			this.popMatrix();
+			////Trapeze
+			//this.pushMatrix();
+			//this.translate(20,0,-5);
+			//this.scale(2,2,2);
+			//this.basicAppearance.apply();
+			//this.trapeze.display();
+			//this.popMatrix();
 		
-			//Sphere
-			this.pushMatrix();
-			this.translate(20,0,-9);
-			this.scale(2,2,2);
-			this.basicAppearance.apply();
-			this.sphere.display();
-			this.popMatrix();
+			////Sphere
+			//this.pushMatrix();
+			//this.translate(20,0,-9);
+			//this.scale(2,2,2);
+			//this.basicAppearance.apply();
+			//this.sphere.display();
+			//this.popMatrix();
 			
         
 
