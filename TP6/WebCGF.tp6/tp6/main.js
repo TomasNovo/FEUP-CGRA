@@ -20,6 +20,7 @@ serialInclude([
 	'MyCrane.js',
 	'MyArm.js',
 	'MySky.js',
+	'InvSphere.js',
 	main=function() {
 		var app = new CGFapplication(document.body);
 		var myScene = new LightingScene();
